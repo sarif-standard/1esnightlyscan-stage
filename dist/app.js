@@ -35,6 +35,7 @@ const sarifLogZeroResults = {
 };
 const params = new URLSearchParams(window.location.search);
 const {repo, repository} = Object.fromEntries(params.entries());
+const filterKeywords = params.get("filterKeywords") ?? "";
 const mockRepoEnabled = (() => {
   const value = params.get("mockRepoEnabled");
   if (value === "true")
@@ -198,9 +199,11 @@ export function App() {
   })(), /* @__PURE__ */ React.createElement(Viewer, {
     logs: sarif && [sarif],
     filterState: {
+      Keywords: {value: filterKeywords},
       Baseline: {value: ["new", "unchanged", "updated"]},
       Level: {value: ["error"]}
     },
+    hideBaseline: true,
     successMessage: isRespository ? `No live secrets have been detected in the '${repository ?? repo}' repository. Nice job!` : "No live secrets detected.",
     onCreate: (getFilteredContextRegionSnippetTexts) => {
       getSnippets = getFilteredContextRegionSnippetTexts;
