@@ -36,6 +36,7 @@ const sarifLogZeroResults = {
 const params = new URLSearchParams(window.location.search);
 const {repo, repository} = Object.fromEntries(params.entries());
 const filterKeywords = params.get("filterKeywords") ?? "";
+const paramDownload = params.get("download") != null;
 const mockRepoEnabled = (() => {
   const value = params.get("mockRepoEnabled");
   if (value === "true")
@@ -51,6 +52,14 @@ const mockZeroResults = (() => {
   return void 0;
 })();
 let getSnippets;
+function download(saveAs, contents) {
+  const a = document.createElement("a");
+  a.setAttribute("href", `data:text/json;base64,${btoa(contents)}`);
+  a.setAttribute("download", saveAs);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
 export function App() {
   const isAuthenticated = useIsAuthenticated();
   const {instance, accounts} = useMsal();
@@ -97,6 +106,10 @@ export function App() {
       try {
         const response = await fetchSpam("query");
         const responseJson = await response.json();
+        if (paramDownload) {
+          const fileName = repository ?? repo ?? "results";
+          download(`${fileName}.sarif`, JSON.stringify(responseJson, null, "  "));
+        }
         setSarif(responseJson);
         if (mockRepoEnabled === void 0) {
           const repoDisabled = responseJson?.runs?.[0]?.versionControlProvenance?.[0]?.properties?.isDisabled;
