@@ -163,6 +163,10 @@ export function App() {
   }, "Sign out ", accounts[0]?.username), /* @__PURE__ */ React.createElement(Button, {
     iconProps: {iconName: "Mail"},
     href: `mailto:caicredremediation@microsoft.com?subject=${encodeURIComponent(document.location.toString())}`
+  }), /* @__PURE__ */ React.createElement(Button, {
+    iconProps: {iconName: "Help"},
+    href: "https://aka.ms/1esnightlyscan/help",
+    target: "_blank"
   }))), /* @__PURE__ */ React.createElement("div", {
     className: `viewer ${sarif ? "viewerActive" : ""}`
   }, (() => {
