@@ -14,6 +14,7 @@ import {CardContent, CustomCard} from "../web_modules/azure-devops-ui/Card.js";
 import {ObservableValue} from "../web_modules/azure-devops-ui/Core/Observable.js";
 import {FormItem} from "../web_modules/azure-devops-ui/FormItem.js";
 import {Header} from "../web_modules/azure-devops-ui/Header.js";
+import {MoreButton} from "../web_modules/azure-devops-ui/Menu.js";
 import {TextField} from "../web_modules/azure-devops-ui/TextField.js";
 import {VssPersona} from "../web_modules/azure-devops-ui/VssPersona.js";
 import {observer} from "../web_modules/mobx-react.js";
@@ -47,7 +48,7 @@ export let Discussion = class extends Component {
       }, /* @__PURE__ */ React.createElement(VssPersona, {
         size: "small"
       }), /* @__PURE__ */ React.createElement("div", {
-        className: "flex-column"
+        className: "flex-column flex-grow"
       }, /* @__PURE__ */ React.createElement("div", {
         className: "flex-row commentTitle"
       }, /* @__PURE__ */ React.createElement("div", {
@@ -59,7 +60,13 @@ export let Discussion = class extends Component {
       }))), /* @__PURE__ */ React.createElement("div", {
         className: "secondary-text",
         style: {lineHeight: 1.5}
-      }, text)));
+      }, text)), /* @__PURE__ */ React.createElement(MoreButton, {
+        contextualMenuProps: {
+          menuProps: {id: "more-menu", items: [
+            {iconProps: {iconName: "Delete"}, id: "delete", text: "Delete", onActivate: () => void store.comments.splice(i, 1)}
+          ]}
+        }
+      }));
     }), /* @__PURE__ */ React.createElement("div", {
       className: "flex-row",
       style: {marginTop: 8}
