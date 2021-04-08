@@ -12,6 +12,8 @@ import relativeTime from "../web_modules/dayjs/plugin/relativeTime.js";
 import timezone from "../web_modules/dayjs/plugin/timezone.js";
 import utc from "../web_modules/dayjs/plugin/utc.js";
 import React, {useEffect, useState} from "../web_modules/react.js";
+import {Discussion} from "./discussion.js";
+import {DiscussionStore} from "./discussionStore.js";
 const {Viewer} = swc;
 dayjs.extend(relativeTime);
 dayjs.extend(timezone);
@@ -51,6 +53,8 @@ const mockZeroResults = (() => {
     return true;
   return void 0;
 })();
+const secretHash = params.get("secretHash") ?? void 0;
+const discussionStore = new DiscussionStore(secretHash);
 let getSnippets;
 function download(saveAs, contents) {
   const a = document.createElement("a");
@@ -169,13 +173,15 @@ export function App() {
     target: "_blank"
   }))), /* @__PURE__ */ React.createElement("div", {
     className: `viewer ${sarif ? "viewerActive" : ""}`
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "flex-column"
   }, (() => {
     if (!isRespository)
       return null;
     if (repoEnabled && !resultCount)
       return null;
     return /* @__PURE__ */ React.createElement(Page, {
-      className: "heightAuto bolt-page-grey"
+      className: "heightAuto bolt-page-grey flex-00auto"
     }, /* @__PURE__ */ React.createElement("div", {
       className: "page-content page-content-top"
     }, /* @__PURE__ */ React.createElement(Card, null, repoEnabled ? /* @__PURE__ */ React.createElement("div", {
@@ -226,5 +232,8 @@ export function App() {
       getSnippets = getFilteredContextRegionSnippetTexts;
       setGetSnippetsReady(true);
     }
+  })), /* @__PURE__ */ React.createElement(Discussion, {
+    store: discussionStore,
+    user: accounts[0]?.username ?? "Anonymous"
   }))));
 }

@@ -1,8 +1,11 @@
-import { _ as __extends, F as FocusZoneContext, I as Icon, a as __assign, b as IconSize, T as Tooltip, c as FocusGroupContext, M as MouseWithin, L as Location } from './Icon.Props-aa4785d7.js';
-import { c as childCount, g as getSafeId, a as css, K as KeyCode, s as setFocusVisible } from './Util-c5aac4ed.js';
+import { _ as __extends, a as __assign } from './Observable-2864a2f4.js';
+import { d as childCount, g as getSafeId, c as css, K as KeyCode, e as setFocusVisible } from './Util-26aa457f.js';
 import { r as react } from './index-abdc4d2d.js';
 import { a as announce } from './Accessibility-e11a7e50.js';
-import { g as getTabIndex } from './Focus-eab5ece8.js';
+import { F as FocusZoneContext, T as Tooltip, a as FocusGroupContext, M as MouseWithin, L as Location } from './Tooltip-cceb4663.js';
+import { C as Collapsed, E as Expanded } from './Resources.Core-6b4f8906.js';
+import { g as getTabIndex } from './Focus-d5604f23.js';
+import { I as Icon, a as IconSize } from './Icon.Props-7d7e0951.js';
 
 /** SNOWPACK INJECT STYLE: azure-devops-ui/Components/Button/Button.css */
 function __snowpack__injectStyle(css) {
@@ -140,12 +143,6 @@ var Button = /** @class */ (function (_super) {
     Button.contextType = FocusGroupContext;
     return Button;
 }(react.Component));
-
-var Collapsed = "Collapsed";
-var Expanded = "Expanded";
-var FriendlyNumberBillionsFormat = "{0}B+";
-var FriendlyNumberMillionsFormat = "{0}M+";
-var FriendlyNumberThousandsFormat = "{0}K+";
 
 var Expandable = /** @class */ (function (_super) {
     __extends(Expandable, _super);
@@ -348,4 +345,4 @@ var ExpandableButton = /** @class */ (function (_super) {
     return ExpandableButton;
 }(react.Component));
 
-export { Button as B, ExpandableButton as E, FriendlyNumberThousandsFormat as F, FriendlyNumberMillionsFormat as a, FriendlyNumberBillionsFormat as b };
+export { Button as B, ExpandableButton as E };

@@ -1,8 +1,14 @@
-import { i as ObservableValue, _ as __extends, a as __assign, F as FocusZoneContext, I as Icon, b as IconSize, T as Tooltip, O as Observer, c as FocusGroupContext, k as __spreadArrays, g as ObservableLike, f as FocusZoneDirection, e as FocusZone, S as SurfaceContext, n as SurfaceBackground, j as ObservableArray } from './Icon.Props-aa4785d7.js';
-import { b as shimRef, a as css, g as getSafeId, K as KeyCode } from './Util-c5aac4ed.js';
+import { O as ObservableValue, _ as __extends, a as __assign, b as __spreadArrays, c as ObservableLike, d as ObservableArray } from './Observable-2864a2f4.js';
+import { s as shimRef, c as css, g as getSafeId, K as KeyCode } from './Util-26aa457f.js';
 import { r as react } from './index-abdc4d2d.js';
-import { B as Button, F as FriendlyNumberThousandsFormat, a as FriendlyNumberMillionsFormat, b as FriendlyNumberBillionsFormat } from './ExpandableButton-0197ca49.js';
-import { g as getTabIndex } from './Focus-eab5ece8.js';
+import { O as Observer } from './SelectionObserver-43ed5fc0.js';
+import { F as FocusZoneContext, T as Tooltip, a as FocusGroupContext, f as FocusZoneDirection, e as FocusZone, S as SurfaceContext, d as SurfaceBackground } from './Tooltip-cceb4663.js';
+import { I as Icon, a as IconSize } from './Icon.Props-7d7e0951.js';
+import { f as format } from './String-19e5561c.js';
+import { F as FriendlyNumberThousandsFormat, b as FriendlyNumberMillionsFormat, c as FriendlyNumberBillionsFormat } from './Resources.Core-6b4f8906.js';
+import { B as Button } from './ExpandableButton-871943b3.js';
+import { d as darken, g as getColorString, i as isDark } from './Color-c39ec9d4.js';
+import { g as getTabIndex } from './Focus-d5604f23.js';
 
 var ScreenBreakpoints;
 (function (ScreenBreakpoints) {
@@ -284,122 +290,6 @@ function __snowpack__injectStyle$1(css) {
   headEl.appendChild(styleEl);
 }
 __snowpack__injectStyle$1("/* \r\n    We're using absolute height and negative margins in this file\r\n    this is because borders make a lot of this logic weird, and the spec calls for overlap of borders\r\n    between what are logically parent and child elements\r\n    \r\n    eg. in Outlined pills, the button focus circle should exactly overlap the pill's outline\r\n\r\n    Using negative margin means we need to do less padding management of the container based on\r\n    what elements it happens to contain, and elements can just intrude on the left-right padding of the parent\r\n    */\n.bolt-pill {\n  border-radius: 120px;\n  border: 1px solid transparent;\n  white-space: nowrap; }\n  .bolt-pill.clickable {\n    cursor: pointer; }\n  .bolt-pill.count .bolt-pill-content {\n    font-weight: 600; }\n  .bolt-pill .bolt-pill-content {\n    margin: 0px 0.5rem;\n    padding: 2px 0; }\n  .bolt-pill .bolt-pill-icon {\n    margin-left: 0.25rem;\n    margin-right: 0.375rem; }\n  .bolt-pill.compact.has-filled-visual .bolt-pill-content, .bolt-pill.compact.has-icon .bolt-pill-content, .bolt-pill.regular.has-filled-visual .bolt-pill-content, .bolt-pill.regular.has-icon .bolt-pill-content, .bolt-pill.large.has-filled-visual .bolt-pill-content, .bolt-pill.large.has-icon .bolt-pill-content {\n    margin-left: 0; }\n  .bolt-pill.compact.has-remove-button .bolt-pill-content, .bolt-pill.regular.has-remove-button .bolt-pill-content, .bolt-pill.large.has-remove-button .bolt-pill-content {\n    margin-right: 0.375rem; }\n  .bolt-pill.compact {\n    font-size: 0.6875rem; }\n  .bolt-pill.regular {\n    font-size: 0.75rem; }\n    .bolt-pill.regular .bolt-pill-filled-visual {\n      width: 1.25rem; }\n  .bolt-pill.large {\n    font-size: 0.875rem; }\n    .bolt-pill.large .bolt-pill-filled-visual {\n      width: 1.5rem; }\n  .bolt-pill.standard {\n    background-color: rgba(0, 0, 0, 0.06);\n    background-color: var(--palette-black-alpha-6,rgba(0, 0, 0, 0.06)); }\n    .bolt-pill.standard.clickable.hover {\n      background-color: rgba(0, 0, 0, 0.10);\n      background-color: var(--palette-black-alpha-10,rgba(0, 0, 0, 0.10)); }\n  .bolt-pill.outlined {\n    background-color: transparent;\n    border-color: rgba(0, 0, 0, 0.20);\n    border-color: var(--palette-black-alpha-20,rgba(0, 0, 0, 0.20)); }\n    .bolt-pill.outlined.clickable.hover {\n      background-color: rgba(0, 0, 0, 0.06);\n      background-color: var(--palette-black-alpha-6,rgba(0, 0, 0, 0.06)); }\n    .bolt-pill.outlined .bolt-pill-button {\n      border: 1px solid transparent; }\n  .bolt-pill.colored.dark {\n    color: white; }\n  .bolt-pill.colored.light {\n    color: black; }\n\n.bolt-focus-visible .bolt-pill:focus {\n  border-color: rgba(0, 120, 212, 1);\n  border-color: var(--communication-background,rgba(0, 120, 212, 1));\n  animation: ms-focus-shadow-pulse 4s ease-in-out infinite;\n  box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.23);\n  box-shadow: 0 0 0 3px var(--focus-pulse-max-color,rgba(0, 120, 212, 0.23));\n  outline: none; }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-focus-visible .bolt-pill:focus {\n      animation: none; } }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-focus-visible .bolt-pill:focus {\n      forced-color-adjust: none;\n      border-color: highlight; } }\n  @media screen and (-ms-high-contrast: black-on-white) {\n    .bolt-focus-visible .bolt-pill:focus {\n      outline: 1px solid highlight;\n      outline-offset: 1px; } }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-focus-visible .bolt-pill:focus {\n      background: transparent !important;\n      color: windowtext; } }\n\n.bolt-pill-icon {\n  padding: 2px; }\n\n.bolt-pill-filled-visual {\n  overflow: hidden;\n  border-radius: 50%;\n  margin-right: 4px; }\n\nbutton.bolt-pill-button.bolt-button.icon-only {\n  border-radius: 50%;\n  color: inherit;\n  margin-left: auto;\n  padding: 2px; }\n  button.bolt-pill-button.bolt-button.icon-only:hover {\n    background-color: rgba(0, 0, 0, 0.06);\n    background-color: var(--palette-black-alpha-6,rgba(0, 0, 0, 0.06)); }\n");
-
-/**
- * Generate a string using a format string and arguments.
- *
- * @param format Format string
- * @param args Arguments to use as replacements
- */
-function format(format) {
-    var args = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        args[_i - 1] = arguments[_i];
-    }
-    return _stringFormat(false, format, args);
-}
-function _stringFormat(useLocale, format, args) {
-    var result = "";
-    for (var i = 0;;) {
-        var open_1 = format.indexOf("{", i);
-        var close_1 = format.indexOf("}", i);
-        if (open_1 < 0 && close_1 < 0) {
-            result += format.slice(i);
-            break;
-        }
-        if (close_1 > 0 && (close_1 < open_1 || open_1 < 0)) {
-            if (format.charAt(close_1 + 1) !== "}") {
-                throw new Error("The format string contains an unmatched opening or closing brace.");
-            }
-            result += format.slice(i, close_1 + 1);
-            i = close_1 + 2;
-            continue;
-        }
-        result += format.slice(i, open_1);
-        i = open_1 + 1;
-        if (format.charAt(i) === "{") {
-            result += "{";
-            i++;
-            continue;
-        }
-        if (close_1 < 0) {
-            throw new Error("The format string contains an unmatched opening or closing brace.");
-        }
-        var brace = format.substring(i, close_1);
-        var colonIndex = brace.indexOf(":");
-        var argNumber = parseInt(colonIndex < 0 ? brace : brace.substring(0, colonIndex), 10);
-        if (isNaN(argNumber)) {
-            throw new Error("The format string is invalid.");
-        }
-        var argFormat = colonIndex < 0 ? "" : brace.substring(colonIndex + 1);
-        var arg = args[argNumber];
-        if (typeof arg === "undefined" || arg === null) {
-            arg = "";
-        }
-        if (arg.toFormattedString) {
-            result += arg.toFormattedString(argFormat);
-        }
-        else if (arg instanceof Date) {
-            result += dateToString(arg, useLocale);
-        }
-        else if (arg.format) {
-            result += arg.format(argFormat);
-        }
-        else {
-            result += arg.toString();
-        }
-        i = close_1 + 1;
-    }
-    return result;
-}
-var localeFormatters = ("Intl" in window) ? {
-    date: new Intl.DateTimeFormat(),
-    dateTime: new Intl.DateTimeFormat(undefined, {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric"
-    })
-} : {};
-/**
- * Converts a date to a string, optionally using the locale formatter
- *
- * @param value date to convert to a string
- * @param useLocale use the locale formatter when converting to a string
- */
-function dateToString(value, useLocale) {
-    var localeKey = typeof useLocale === "string" ? useLocale : "dateTime";
-    if (useLocale) {
-        var formatter = localeFormatters[localeKey];
-        if (!formatter) {
-            {
-                formatter = localeFormatters["dateTime"];
-            }
-        }
-        return formatter.format(value);
-    }
-    else {
-        return value.toString();
-    }
-}
-
-function darken(color, darkenFactor) {
-    var darkenMultiplier = 1 - darkenFactor;
-    return {
-        red: color.red * darkenMultiplier,
-        green: color.green * darkenMultiplier,
-        blue: color.blue * darkenMultiplier
-    };
-}
-function getColorString(color) {
-    return "rgb(" + color.red + ", " + color.green + ", " + color.blue + ")";
-}
-function isDark(color) {
-    var luminance = color.red * 0.299 + color.green * 0.587 + color.blue * 0.114;
-    return luminance <= 128;
-}
 
 var PillSize;
 (function (PillSize) {

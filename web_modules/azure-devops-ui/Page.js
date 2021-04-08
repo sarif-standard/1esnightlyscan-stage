@@ -1,12 +1,19 @@
-import { _ as __extends, S as SurfaceContext, n as SurfaceBackground, j as ObservableArray } from '../common/Icon.Props-aa4785d7.js';
-import { a as css } from '../common/Util-c5aac4ed.js';
+import { _ as __extends, d as ObservableArray } from '../common/Observable-2864a2f4.js';
+import { c as css } from '../common/Util-26aa457f.js';
 import { r as react } from '../common/index-abdc4d2d.js';
-import { I as Intersection, c as TabProvider, d as TabGroupProvider } from '../common/TabContent-218b1663.js';
-import '../common/index-2be6b7dd.js';
+import { I as Intersection, c as TabProvider, d as TabGroupProvider } from '../common/TabContent-d1a5a960.js';
+import { S as SurfaceContext, d as SurfaceBackground } from '../common/Tooltip-cceb4663.js';
+import '../common/process-2545f00a.js';
 import '../common/_commonjsHelpers-4f955397.js';
-import '../common/ExpandableButton-0197ca49.js';
+import '../common/SelectionObserver-43ed5fc0.js';
+import '../common/Icon.Props-7d7e0951.js';
+import '../common/String-19e5561c.js';
+import '../common/Resources.Core-6b4f8906.js';
+import '../common/ExpandableButton-871943b3.js';
 import '../common/Accessibility-e11a7e50.js';
-import '../common/Focus-eab5ece8.js';
+import '../common/Focus-d5604f23.js';
+import '../common/Color-c39ec9d4.js';
+import '../common/index-2be6b7dd.js';
 
 /** SNOWPACK INJECT STYLE: azure-devops-ui/Components/Page/Page.css */
 function __snowpack__injectStyle(css) {

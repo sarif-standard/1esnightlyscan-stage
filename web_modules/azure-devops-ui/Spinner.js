@@ -1,6 +1,7 @@
-import { a as css, g as getSafeId } from '../common/Util-c5aac4ed.js';
+import { c as css, g as getSafeId } from '../common/Util-26aa457f.js';
 import { r as react } from '../common/index-abdc4d2d.js';
 import { a as announce } from '../common/Accessibility-e11a7e50.js';
+import '../common/process-2545f00a.js';
 import '../common/_commonjsHelpers-4f955397.js';
 
 /** SNOWPACK INJECT STYLE: azure-devops-ui/Components/Spinner/Spinner.css */
