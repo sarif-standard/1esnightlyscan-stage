@@ -1,18 +1,18 @@
-.swcDiscussionPane .vss-Persona {
+.discussion .vss-Persona {
   margin-top: 2px;
   margin-right: 8px;
 }
 
-.swcCommentRowContent {
+.comment {
   padding-top: 12px;
   padding-bottom: 12px;
 }
-.swcCommentRowContent .swcCommentTitle {
+.comment .commentTitle {
   margin-bottom: 4px;
 }
-.swcCommentRowContent .swcCommentPerson {
+.comment .commentPerson {
   margin-right: 8px;
 }
-.swcCommentRowContent .secondary-text {
+.comment .secondary-text {
   white-space: pre-wrap;
 }

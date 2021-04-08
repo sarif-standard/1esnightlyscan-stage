@@ -38,20 +38,20 @@ export let Discussion = class extends Component {
     }, /* @__PURE__ */ React.createElement(Header, {
       title: "Discussion"
     }), /* @__PURE__ */ React.createElement(CardContent, {
-      className: "swcDiscussionPane"
+      className: "discussion"
     }, store.comments.map((comment, i) => {
       const {who, when, text} = comment;
       return /* @__PURE__ */ React.createElement("div", {
-        className: "swcCommentRowContent flex-row flex-start",
+        className: "comment flex-row flex-start",
         key: i
       }, /* @__PURE__ */ React.createElement(VssPersona, {
         size: "small"
       }), /* @__PURE__ */ React.createElement("div", {
         className: "flex-column"
       }, /* @__PURE__ */ React.createElement("div", {
-        className: "flex-row swcCommentTitle"
+        className: "flex-row commentTitle"
       }, /* @__PURE__ */ React.createElement("div", {
-        className: "primary-text text-ellipsis swcCommentPerson"
+        className: "primary-text text-ellipsis commentPerson"
       }, who), /* @__PURE__ */ React.createElement("div", {
         className: "secondary-text"
       }, /* @__PURE__ */ React.createElement(Ago, {
