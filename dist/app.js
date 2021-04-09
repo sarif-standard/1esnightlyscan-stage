@@ -14,6 +14,7 @@ import utc from "../web_modules/dayjs/plugin/utc.js";
 import React, {useEffect, useState} from "../web_modules/react.js";
 import {Discussion} from "./discussion.js";
 import {DiscussionStore} from "./discussionStore.js";
+import {RevalidateButton} from "./revalidateButton.js";
 const {Viewer} = swc;
 dayjs.extend(relativeTime);
 dayjs.extend(timezone);
@@ -55,7 +56,6 @@ const mockZeroResults = (() => {
 })();
 const secretHash = params.get("secretHash") ?? void 0;
 const discussionStore = new DiscussionStore(secretHash);
-let getSnippets;
 function download(saveAs, contents) {
   const a = document.createElement("a");
   a.setAttribute("href", `data:text/json;base64,${btoa(contents)}`);
@@ -70,7 +70,7 @@ export function App() {
   const {login} = useMsalAuthentication(InteractionType.Silent, {scopes: []});
   const [loading, setLoading] = useState(false);
   const [sarif, setSarif] = useState();
-  const [getSnippetsReady, setGetSnippetsReady] = useState(false);
+  const [getSnippets, setGetSnippets] = useState();
   const [responsibility, setResponsibility] = useState(false);
   const [repoEnabled, setRepoEnabled] = useState(mockRepoEnabled);
   const isRespository = repoEnabled != void 0;
@@ -151,18 +151,10 @@ export function App() {
     className: "intro"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "introHeader"
-  }, /* @__PURE__ */ React.createElement("h1", null, document.title, ": Live Secrets"), /* @__PURE__ */ React.createElement("span", null, "Current as of ", scanAge), loading && /* @__PURE__ */ React.createElement(Spinner, null), /* @__PURE__ */ React.createElement(Button, {
-    disabled: !sarif || !getSnippetsReady,
-    onClick: () => {
-      const spamcopUrl = "https://sarif-standard.github.io/spamcop/";
-      const spamcop = open(spamcopUrl);
-      if (!spamcop)
-        return;
-      setTimeout(() => {
-        spamcop.postMessage(getSnippets().join("\n\n"), spamcopUrl);
-      }, 500);
-    }
-  }, "Revalidate Now"), /* @__PURE__ */ React.createElement(Button, {
+  }, /* @__PURE__ */ React.createElement("h1", null, document.title, ": Live Secrets"), /* @__PURE__ */ React.createElement("span", null, "Current as of ", scanAge), loading && /* @__PURE__ */ React.createElement(Spinner, null), /* @__PURE__ */ React.createElement(RevalidateButton, {
+    disabled: !sarif,
+    getSnippets
+  }), /* @__PURE__ */ React.createElement(Button, {
     onClick: () => instance.logout()
   }, "Sign out ", accounts[0]?.username), /* @__PURE__ */ React.createElement(Button, {
     iconProps: {iconName: "Mail"},
@@ -229,8 +221,7 @@ export function App() {
     hideBaseline: true,
     successMessage: isRespository ? `No live secrets have been detected in the '${repository ?? repo}' repository. Nice job!` : "No live secrets detected.",
     onCreate: (getFilteredContextRegionSnippetTexts) => {
-      getSnippets = getFilteredContextRegionSnippetTexts;
-      setGetSnippetsReady(true);
+      setGetSnippets(() => getFilteredContextRegionSnippetTexts);
     }
   })), /* @__PURE__ */ React.createElement(Discussion, {
     store: discussionStore,
