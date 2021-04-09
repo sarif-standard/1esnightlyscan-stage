@@ -7,18 +7,12 @@ import {Checkbox} from "../web_modules/azure-devops-ui/Checkbox.js";
 import {Icon, IconSize} from "../web_modules/azure-devops-ui/Icon.js";
 import {Page} from "../web_modules/azure-devops-ui/Page.js";
 import {Spinner} from "../web_modules/azure-devops-ui/Spinner.js";
-import dayjs from "../web_modules/dayjs.js";
-import relativeTime from "../web_modules/dayjs/plugin/relativeTime.js";
-import timezone from "../web_modules/dayjs/plugin/timezone.js";
-import utc from "../web_modules/dayjs/plugin/utc.js";
 import React, {useEffect, useState} from "../web_modules/react.js";
+import {Age} from "./age.js";
 import {Discussion} from "./discussion.js";
 import {DiscussionStore} from "./discussionStore.js";
 import {RevalidateButton} from "./revalidateButton.js";
 const {Viewer} = swc;
-dayjs.extend(relativeTime);
-dayjs.extend(timezone);
-dayjs.extend(utc);
 const sarifLogZeroResults = {
   version: "2.1.0",
   runs: [{
@@ -128,13 +122,6 @@ export function App() {
   const resultCount = sarif?.runs?.reduce((acc, run) => {
     return acc + (run.results?.filter((result) => result.level === "error").length ?? 0);
   }, 0);
-  const scanAge = (() => {
-    const local = dayjs();
-    const pacific = local.tz("America/Los_Angeles");
-    const pacificMidnight = pacific.startOf("day");
-    const pacificNoon = pacificMidnight.add(12, "hour");
-    return pacific >= pacificNoon ? pacificNoon.from(pacific) : pacificMidnight.from(pacific);
-  })();
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(UnauthenticatedTemplate, null, /* @__PURE__ */ React.createElement("div", {
     className: "intro"
   }, /* @__PURE__ */ React.createElement("div", {
@@ -151,7 +138,7 @@ export function App() {
     className: "intro"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "introHeader"
-  }, /* @__PURE__ */ React.createElement("h1", null, document.title, ": Live Secrets"), /* @__PURE__ */ React.createElement("span", null, "Current as of ", scanAge), loading && /* @__PURE__ */ React.createElement(Spinner, null), /* @__PURE__ */ React.createElement(RevalidateButton, {
+  }, /* @__PURE__ */ React.createElement("h1", null, document.title, ": Live Secrets"), /* @__PURE__ */ React.createElement(Age, null), loading && /* @__PURE__ */ React.createElement(Spinner, null), /* @__PURE__ */ React.createElement(RevalidateButton, {
     disabled: !sarif,
     getSnippets
   }), /* @__PURE__ */ React.createElement(Button, {
