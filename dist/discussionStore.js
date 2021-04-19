@@ -31,24 +31,15 @@ export class DiscussionStore {
     });
     (async () => {
       const container = this.container = await client.database("demo").container("secretHash");
-      try {
-        await container.items.create({
-          id: secretHash,
-          comments: []
-        });
-      } catch (error) {
-        if (error.code !== 409)
-          console.error(error);
-      }
-      const {resources} = await container.items.query(`SELECT * FROM c WHERE c.id = "${secretHash}"`).fetchAll();
-      this.comments = resources[0]?.comments ?? [];
+      const item = await container.item(secretHash, secretHash).read();
+      this.comments = item.resource?.comments ?? [];
       deepObserve(this.comments, () => this.publish());
     })();
   }
   publish() {
     if (!this.secretHash)
       return;
-    this.container?.item(this.secretHash).replace({
+    this.container?.items.upsert({
       id: this.secretHash,
       comments: this.comments
     });
