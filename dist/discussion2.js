@@ -115,7 +115,7 @@ export let Discussion2 = class extends Component {
           className: "secondary-text"
         }))))
       },
-      headerCommandBarItems: comment.who === user ? [
+      headerCommandBarItems: comment.who === user && commentBeingEdited !== comment ? [
         {
           id: "edit",
           iconProps: {iconName: "Edit"},
@@ -148,7 +148,7 @@ export let Discussion2 = class extends Component {
         });
         this.commentBeingEdited = void 0;
       }
-    }) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Role:"), " ", comment.roles.map((r) => roleMap.get(r)).join(" ")), /* @__PURE__ */ React.createElement("div", {
+    }) : /* @__PURE__ */ React.createElement(React.Fragment, null, !!comment.votes.length && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Vote", comment.votes.length ? "s" : "", ":"), " ", comment.votes.map((vote) => voteMap.get(vote)).join(" ")), !!comment.roles.length && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Role", comment.roles.length ? "s" : "", ":"), " ", comment.roles.map((role) => roleMap.get(role)).join(" ")), !!comment.text && /* @__PURE__ */ React.createElement("div", {
       className: "margin-top-12"
     }, /* @__PURE__ */ React.createElement("strong", null, "Comments:"), " ", comment.text))))));
   }
