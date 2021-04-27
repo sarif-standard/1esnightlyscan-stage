@@ -1,6 +1,7 @@
-import { _ as __extends, a as __assign } from './Observable-2864a2f4.js';
-import { s as shimRef } from './Util-26aa457f.js';
+import { _ as __extends, a as __assign } from './Observable-24aa1084.js';
+import './core-1947a0ef.js';
 import { r as react } from './index-abdc4d2d.js';
+import { s as shimRef } from './Util-e30cbaf3.js';
 
 // We need to monitor fine grained changes, especially when the list
 // has horizontal scroll. You dont get 100% visible ever.
@@ -159,7 +160,4 @@ var Intersection = /** @class */ (function (_super) {
     return Intersection;
 }(react.Component));
 
-var MoreActions = "More actions";
-var RemovePillLabel = "Remove {0}";
-
-export { Intersection as I, MoreActions as M, RemovePillLabel as R, IntersectionContext as a };
+export { Intersection as I, IntersectionContext as a };

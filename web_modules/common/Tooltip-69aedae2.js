@@ -1,8 +1,10 @@
-import { _ as __extends, a as __assign, O as ObservableValue, b as __spreadArrays } from './Observable-2864a2f4.js';
-import { n as noop, g as getSafeId, s as shimRef, K as KeyCode, a as getRelationship, E as ElementRelationship, c as css, i as isFunctionalChildren, b as getFocusVisible, M as Mouse } from './Util-26aa457f.js';
+import { _ as __extends, a as __assign, O as ObservableValue, b as __spreadArrays } from './Observable-24aa1084.js';
+import './core-1947a0ef.js';
 import { r as react } from './index-abdc4d2d.js';
+import { n as noop, g as getSafeId, s as shimRef, K as KeyCode, a as getRelationship, E as ElementRelationship, c as css, i as isFunctionalChildren, b as getFocusVisible, M as Mouse } from './Util-e30cbaf3.js';
 import { r as reactDom } from './index-2be6b7dd.js';
-import { O as Observer } from './SelectionObserver-43ed5fc0.js';
+import { O as Observer } from './SelectionObserver-a72f3be5.js';
+import { S as SurfaceContext, a as SurfaceBackground } from './Surface-779be6fe.js';
 
 /** SNOWPACK INJECT STYLE: azure-devops-ui/Components/TooltipEx/Tooltip.css */
 function __snowpack__injectStyle(css) {
@@ -1278,61 +1280,6 @@ var TimerManagement = /** @class */ (function () {
     return TimerManagement;
 }());
 
-/** SNOWPACK INJECT STYLE: azure-devops-ui/Components/Surface/Surface.css */
-function __snowpack__injectStyle$3(css) {
-  const headEl = document.head || document.getElementsByTagName('head')[0];
-  const styleEl = document.createElement('style');
-  styleEl.type = 'text/css';
-  if (styleEl.styleSheet) {
-    styleEl.styleSheet.cssText = css;
-  } else {
-    styleEl.appendChild(document.createTextNode(css));
-  }
-  headEl.appendChild(styleEl);
-}
-__snowpack__injectStyle$3(".bolt-condensed-horizontal-spacing {\n  padding-left: 16px;\n  padding-right: 16px; }\n\n.bolt-default-horizontal-spacing {\n  padding-left: 20px;\n  padding-right: 20px; }\n\n.bolt-relaxed-horizontal-spacing {\n  padding-left: 32px;\n  padding-right: 32px; }\n");
-
-/**
- * Defines how spacing should be applied to the children of a container.
- */
-var Spacing;
-(function (Spacing) {
-    Spacing[Spacing["condensed"] = 0] = "condensed";
-    Spacing[Spacing["default"] = 1] = "default";
-    Spacing[Spacing["relaxed"] = 2] = "relaxed";
-})(Spacing || (Spacing = {}));
-var SurfaceBackground;
-(function (SurfaceBackground) {
-    SurfaceBackground[SurfaceBackground["normal"] = 0] = "normal";
-    SurfaceBackground[SurfaceBackground["neutral"] = 1] = "neutral";
-    SurfaceBackground[SurfaceBackground["callout"] = 2] = "callout";
-})(SurfaceBackground || (SurfaceBackground = {}));
-
-var SurfaceContext = react.createContext({
-    background: SurfaceBackground.normal,
-    horizontalClassName: undefined,
-    spacing: undefined,
-    verticalClassName: undefined
-});
-var Surface = function (props) {
-    return (react.createElement(SurfaceContext.Provider, { value: {
-            background: props.background,
-            horizontalClassName: getHorizontalSpacingClassName(props.spacing),
-            spacing: props.spacing
-        } }, props.children));
-};
-function getHorizontalSpacingClassName(spacing) {
-    if (spacing !== undefined) {
-        return horizontalSpacingClassNames[spacing];
-    }
-    return undefined;
-}
-var horizontalSpacingClassNames = [
-    "bolt-condensed-horizontal-spacing",
-    "bolt-default-horizontal-spacing",
-    "bolt-relaxed-horizontal-spacing"
-];
-
 var ContentJustification;
 (function (ContentJustification) {
     ContentJustification[ContentJustification["Start"] = 0] = "Start";
@@ -1869,4 +1816,4 @@ function overflowDetected(anchorElement) {
     return anchorElement.scrollWidth > Math.ceil(anchorElement.offsetWidth);
 }
 
-export { Callout as C, FocusZoneContext as F, Location as L, MouseWithin as M, SurfaceContext as S, Tooltip as T, FocusGroupContext as a, Surface as b, Spacing as c, SurfaceBackground as d, FocusZone as e, FocusZoneDirection as f, FocusWithin as g, FocusZoneKeyStroke as h };
+export { Callout as C, FocusZoneContext as F, Location as L, MouseWithin as M, Portal as P, Tooltip as T, FocusGroupContext as a, FocusZone as b, FocusZoneDirection as c, FocusWithin as d, FocusZoneKeyStroke as e, TimerManagement as f, ContentSize as g };

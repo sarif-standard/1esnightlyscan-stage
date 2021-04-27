@@ -1,13 +1,17 @@
-import { _ as __extends, a as __assign, c as ObservableLike, d as ObservableArray, b as __spreadArrays, O as ObservableValue } from './Observable-2864a2f4.js';
-import { c as css, g as getSafeId } from './Util-26aa457f.js';
+import { _ as __extends, a as __assign, c as ObservableLike, d as ObservableArray, b as __spreadArrays, O as ObservableValue } from './Observable-24aa1084.js';
+import './core-1947a0ef.js';
 import { r as react } from './index-abdc4d2d.js';
-import { S as SurfaceContext, c as Spacing, T as Tooltip, e as FocusZone, f as FocusZoneDirection } from './Tooltip-cceb4663.js';
-import { S as ScreenContext, a as ScreenSize, T as TabProviderContext } from './TabContent-f6d8d437.js';
-import { B as Button } from './ExpandableButton-871943b3.js';
-import { a as IconSize, I as Icon } from './Icon.Props-7d7e0951.js';
-import { O as Observer } from './SelectionObserver-43ed5fc0.js';
-import { I as Intersection } from './Resources.Widgets-4105c91e.js';
-import { M as MenuItemType, a as MoreButton, b as MenuButton } from './MoreButton-a9d75d8b.js';
+import { S as SurfaceContext, c as Spacing } from './Surface-779be6fe.js';
+import { c as css, g as getSafeId } from './Util-e30cbaf3.js';
+import { S as ScreenSize } from './Screen-d33ca090.js';
+import { B as Button } from './ExpandableButton-4f9f7aa8.js';
+import { a as IconSize, I as Icon } from './Icon.Props-be292e60.js';
+import { T as Tooltip, b as FocusZone, c as FocusZoneDirection } from './Tooltip-69aedae2.js';
+import { S as ScreenSizeObserver, F as FILTER_CHANGE_EVENT, B as Breakpoint } from './Filter-61718055.js';
+import { M as MenuItemType, a as MoreButton, b as MenuButton } from './MoreButton-be2443e4.js';
+import { O as Observer } from './SelectionObserver-a72f3be5.js';
+import { T as TabProviderContext } from './TabContent-121c28a7.js';
+import './Pill-1fe5d4a3.js';
 
 /** SNOWPACK INJECT STYLE: azure-devops-ui/Components/Header/Header.css */
 function __snowpack__injectStyle(css) {
@@ -41,10 +45,6 @@ var CustomHeader = /** @class */ (function (_super) {
 
 var Back = "Back";
 var Filter = "Filter";
-
-var ScreenSizeObserver = function (props) {
-    return react.createElement(ScreenContext.Consumer, null, function (screen) { return react.createElement(Observer, { screenSize: screen.size }, props.children); });
-};
 
 function HeaderBackButton(props) {
     var buttonProps = props.buttonProps;
@@ -138,7 +138,7 @@ var HeaderTitleRow = /** @class */ (function (_super) {
     return HeaderTitleRow;
 }(react.Component));
 
-/** SNOWPACK INJECT STYLE: azure-devops-ui/Components/Breakpoint/Breakpoint.css */
+/** SNOWPACK INJECT STYLE: azure-devops-ui/Components/HeaderCommandBar/HeaderCommandBar.css */
 function __snowpack__injectStyle$1(css) {
   const headEl = document.head || document.getElementsByTagName('head')[0];
   const styleEl = document.createElement('style');
@@ -150,60 +150,7 @@ function __snowpack__injectStyle$1(css) {
   }
   headEl.appendChild(styleEl);
 }
-__snowpack__injectStyle$1(".bolt-breakpoint {\n  pointer-events: none; }\n\n.bolt-breakpoint-container {\n  height: 2px; }\n\n.bolt-breakpoint-observation {\n  bottom: 0;\n  left: 0;\n  top: 0; }\n");
-
-function Breakpoint(props) {
-    var observationElement = react.useState(function () { return react.createRef(); })[0];
-    var lastBreakpointIndex = -2;
-    var observationElementFunction = function () {
-        return observationElement.current;
-    };
-    var observationDelegate = function () {
-        var visibleWidth = observationElement.current.parentElement.clientWidth;
-        var breakpoints = props.breakpoints, onBreakpoint = props.onBreakpoint;
-        // Determine the longest visible breakpoint.
-        var breakpointIndex = breakpoints.length - 1;
-        for (; breakpointIndex >= 0; breakpointIndex--) {
-            if (visibleWidth >= breakpoints[breakpointIndex]) {
-                break;
-            }
-        }
-        // Notify the caller about the change in the breakpoint.
-        if (breakpointIndex !== lastBreakpointIndex) {
-            lastBreakpointIndex = breakpointIndex;
-            onBreakpoint(breakpointIndex, breakpoints[breakpointIndex]);
-        }
-    };
-    // Compute the threshold we will use for the notification. This is the percentage
-    // visibility of the observation element within the container.
-    // NOTE: Due to rounding issues we need to know about all 3 pixels (1 before, at breakpoint, 1 after).
-    var breakpoints = props.breakpoints;
-    var observationWidth = breakpoints[breakpoints.length - 1] + 1;
-    var threshold = [];
-    for (var index = 0; index < breakpoints.length; index++) {
-        threshold[index * 3] = (breakpoints[index] - 1) / observationWidth;
-        threshold[index * 3 + 1] = breakpoints[index] / observationWidth;
-        threshold[index * 3 + 2] = (breakpoints[index] + 1) / observationWidth;
-    }
-    return (react.createElement("div", { className: "bolt-breakpoint relative" },
-        react.createElement(Intersection, { observationElement: observationElementFunction, onIntersect: observationDelegate, threshold: threshold },
-            react.createElement("div", { className: "bolt-breakpoint-container absolute-fill scroll-hidden" },
-                react.createElement("div", { className: "bolt-breakpoint-observation absolute", ref: observationElement, style: { width: observationWidth + "px" } })))));
-}
-
-/** SNOWPACK INJECT STYLE: azure-devops-ui/Components/HeaderCommandBar/HeaderCommandBar.css */
-function __snowpack__injectStyle$2(css) {
-  const headEl = document.head || document.getElementsByTagName('head')[0];
-  const styleEl = document.createElement('style');
-  styleEl.type = 'text/css';
-  if (styleEl.styleSheet) {
-    styleEl.styleSheet.cssText = css;
-  } else {
-    styleEl.appendChild(document.createTextNode(css));
-  }
-  headEl.appendChild(styleEl);
-}
-__snowpack__injectStyle$2(".bolt-header-commandbar {\n  margin-left: 16px;\n  padding-right: 4px; }\n\n.bolt-header-command-item-button .bolt-button.icon-only {\n  padding: 8px; }\n\n.bolt-header-commandbar-no-right-padding {\n  padding-right: 0px; }\n\n.bolt-header-command-item-separator {\n  background-color: rgba(0, 0, 0, 0.20);\n  background-color: var(--palette-black-alpha-20,rgba(0, 0, 0, 0.20));\n  width: 1px;\n  margin: 4px 8px; }\n");
+__snowpack__injectStyle$1(".bolt-header-commandbar {\n  margin-left: 16px;\n  padding-right: 4px; }\n\n.bolt-header-command-item-button .bolt-button.icon-only {\n  padding: 8px; }\n\n.bolt-header-commandbar-no-right-padding {\n  padding-right: 0px; }\n\n.bolt-header-command-item-separator {\n  background-color: rgba(0, 0, 0, 0.20);\n  background-color: var(--palette-black-alpha-20,rgba(0, 0, 0, 0.20));\n  width: 1px;\n  margin: 4px 8px; }\n");
 
 var ButtonGroup = function (props) {
     return (react.createElement("div", { className: css(props.className, "bolt-button-group flex-row rhythm-horizontal-8"), role: props.role }, props.children));
@@ -232,27 +179,6 @@ var CustomHeaderCommandBar = /** @class */ (function (_super) {
     };
     return CustomHeaderCommandBar;
 }(react.Component));
-
-var FilterOperatorType;
-(function (FilterOperatorType) {
-    /**
-     * The filter's value should be treated as having the AND operator
-     * e.g. If the value is ['a', 'c', 'd'] any item which does not contain
-     * 'a' AND 'c' AND 'd' should not be included
-     */
-    FilterOperatorType["and"] = "and";
-    /**
-     * The filter's value should be treated as having the OR operator
-     * e.g. If the value is ['a', 'c', 'd'] any item which contains
-     * 'a' OR 'c' OR 'd' should be included
-     */
-    FilterOperatorType["or"] = "or";
-})(FilterOperatorType || (FilterOperatorType = {}));
-var FILTER_CHANGE_EVENT = "filter-changed";
-react.createContext({
-    filter: null,
-    filterToggled: null
-});
 
 function getFilterItem(onActivate, hasChanges, important) {
     if (important === void 0) { important = true; }

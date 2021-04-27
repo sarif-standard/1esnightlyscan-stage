@@ -1,10 +1,11 @@
-import { _ as __extends, a as __assign, c as ObservableLike } from './Observable-2864a2f4.js';
-import { g as getSafeId, c as css, K as KeyCode } from './Util-26aa457f.js';
+import { _ as __extends, a as __assign, c as ObservableLike } from './Observable-24aa1084.js';
+import './core-1947a0ef.js';
 import { r as react } from './index-abdc4d2d.js';
-import { F as FocusZoneContext, T as Tooltip, a as FocusGroupContext } from './Tooltip-cceb4663.js';
-import { I as Icon, a as IconSize } from './Icon.Props-7d7e0951.js';
-import { O as Observer } from './SelectionObserver-43ed5fc0.js';
-import { g as getTabIndex } from './Focus-d5604f23.js';
+import { F as FocusZoneContext, T as Tooltip, a as FocusGroupContext } from './Tooltip-69aedae2.js';
+import { I as Icon, a as IconSize } from './Icon.Props-be292e60.js';
+import { O as Observer } from './SelectionObserver-a72f3be5.js';
+import { g as getSafeId, c as css, K as KeyCode } from './Util-e30cbaf3.js';
+import { g as getTabIndex } from './Focus-dd57f317.js';
 
 /** SNOWPACK INJECT STYLE: azure-devops-ui/Components/Checkbox/Checkbox.css */
 function __snowpack__injectStyle(css) {
@@ -111,4 +112,4 @@ var Checkbox = /** @class */ (function (_super) {
     return Checkbox;
 }(TriStateCheckbox));
 
-export { Checkbox as C };
+export { Checkbox as C, TriStateCheckbox as T };

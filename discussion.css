@@ -7,12 +7,25 @@
   padding-top: 12px;
   padding-bottom: 12px;
 }
-.comment .commentTitle {
-  margin-bottom: 4px;
-}
 .comment .commentPerson {
   margin-right: 8px;
 }
 .comment .secondary-text {
   white-space: pre-wrap;
+}
+
+.discussion2 {
+  width: 400px;
+  padding: 32px;
+  padding-left: 6px;
+}
+
+.meter {
+  height: 5px;
+  border-radius: 2.5px;
+  background: #0078D4;
+}
+.meter.meter-empty {
+  width: 20px;
+  background: #C8C8C8;
 }

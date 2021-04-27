@@ -5,7 +5,7 @@ import {Button} from "../web_modules/azure-devops-ui/Button.js";
 import {Spinner} from "../web_modules/azure-devops-ui/Spinner.js";
 import React, {useEffect, useState} from "../web_modules/react.js";
 import {Age} from "./age.js";
-import {Discussion} from "./discussion.js";
+import {Discussion2} from "./discussion2.js";
 import {DiscussionStore} from "./discussionStore.js";
 import {RepoStatus} from "./repoStatus.js";
 import {RevalidateButton} from "./revalidateButton.js";
@@ -165,7 +165,7 @@ export function App() {
     onCreate: (getFilteredContextRegionSnippetTexts) => {
       setGetSnippets(() => getFilteredContextRegionSnippetTexts);
     }
-  })), /* @__PURE__ */ React.createElement(Discussion, {
+  })), /* @__PURE__ */ React.createElement(Discussion2, {
     store: discussionStore,
     user: accounts[0]?.username ?? "Anonymous"
   }))));

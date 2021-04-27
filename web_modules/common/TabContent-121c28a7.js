@@ -1,83 +1,15 @@
-import { O as ObservableValue, _ as __extends, a as __assign, b as __spreadArrays, c as ObservableLike, d as ObservableArray } from './Observable-2864a2f4.js';
-import { c as css, g as getSafeId, K as KeyCode } from './Util-26aa457f.js';
+import { a as __assign, _ as __extends, b as __spreadArrays, c as ObservableLike, d as ObservableArray } from './Observable-24aa1084.js';
+import './core-1947a0ef.js';
 import { r as react } from './index-abdc4d2d.js';
-import { O as Observer } from './SelectionObserver-43ed5fc0.js';
-import { F as FocusZoneContext, T as Tooltip, a as FocusGroupContext, f as FocusZoneDirection, e as FocusZone, S as SurfaceContext, d as SurfaceBackground } from './Tooltip-cceb4663.js';
-import { I as Icon, a as IconSize } from './Icon.Props-7d7e0951.js';
+import { S as ScreenSize, a as ScreenContext } from './Screen-d33ca090.js';
+import { O as Observer } from './SelectionObserver-a72f3be5.js';
+import { S as SurfaceContext, a as SurfaceBackground } from './Surface-779be6fe.js';
+import { c as css, g as getSafeId, K as KeyCode } from './Util-e30cbaf3.js';
+import { T as Tooltip, a as FocusGroupContext, F as FocusZoneContext, c as FocusZoneDirection, b as FocusZone } from './Tooltip-69aedae2.js';
+import { I as Icon } from './Icon.Props-be292e60.js';
 import { f as format } from './String-19e5561c.js';
 import { F as FriendlyNumberThousandsFormat, b as FriendlyNumberMillionsFormat, c as FriendlyNumberBillionsFormat } from './Resources.Core-6b4f8906.js';
-import { B as Button } from './ExpandableButton-871943b3.js';
-import { R as RemovePillLabel } from './Resources.Widgets-4105c91e.js';
-import { d as darken, g as getColorString, i as isDark } from './Color-c39ec9d4.js';
-import { g as getTabIndex } from './Focus-d5604f23.js';
-
-var ScreenBreakpoints;
-(function (ScreenBreakpoints) {
-    /**
-     * Smallest breakpoint used to react which usually corresponds to a mobile screen < 600px.
-     */
-    ScreenBreakpoints[ScreenBreakpoints["xsmall"] = 1] = "xsmall";
-    /**
-     * Medium breakpoint used to react when the screen size >= 600px and less than
-     * the next breakpoint if exists.
-     */
-    ScreenBreakpoints[ScreenBreakpoints["small"] = 600] = "small";
-    /**
-     * Medium breakpoint used to react when the screen size >= 1024px and less than
-     * the next breakpoint if exists.
-     */
-    ScreenBreakpoints[ScreenBreakpoints["medium"] = 1024] = "medium";
-    /**
-     * Large breakpoint used to react when the screen size >= 1366px and less than
-     * the next breakpoint if exists.
-     */
-    ScreenBreakpoints[ScreenBreakpoints["large"] = 1366] = "large";
-    /**
-     * Largest breakpoint used to react when the screen size >= 1920px and less than
-     * the next breakpoint if exists.
-     */
-    ScreenBreakpoints[ScreenBreakpoints["xlarge"] = 1920] = "xlarge";
-})(ScreenBreakpoints || (ScreenBreakpoints = {}));
-var ScreenSize;
-(function (ScreenSize) {
-    ScreenSize[ScreenSize["xsmall"] = 0] = "xsmall";
-    ScreenSize[ScreenSize["small"] = 1] = "small";
-    ScreenSize[ScreenSize["medium"] = 2] = "medium";
-    ScreenSize[ScreenSize["large"] = 3] = "large";
-    ScreenSize[ScreenSize["xlarge"] = 4] = "xlarge";
-})(ScreenSize || (ScreenSize = {}));
-var ScreenContextImp = /** @class */ (function () {
-    function ScreenContextImp() {
-        var _this = this;
-        this.onResize = function () {
-            var size = _this.getCurrentSize();
-            if (_this.size.value !== size) {
-                _this.size.value = size;
-            }
-        };
-        this.size = new ObservableValue(this.getCurrentSize());
-        window.addEventListener("resize", this.onResize);
-    }
-    ScreenContextImp.prototype.getCurrentSize = function () {
-        if (window.innerWidth >= ScreenBreakpoints.xlarge) {
-            return ScreenSize.xlarge;
-        }
-        else if (window.innerWidth >= ScreenBreakpoints.large) {
-            return ScreenSize.large;
-        }
-        else if (window.innerWidth >= ScreenBreakpoints.medium) {
-            return ScreenSize.medium;
-        }
-        else if (window.innerWidth >= ScreenBreakpoints.small) {
-            return ScreenSize.small;
-        }
-        else {
-            return ScreenSize.xsmall;
-        }
-    };
-    return ScreenContextImp;
-}());
-var ScreenContext = react.createContext(new ScreenContextImp());
+import { P as Pill, a as PillSize } from './Pill-1fe5d4a3.js';
 
 var TabSize;
 (function (TabSize) {
@@ -117,134 +49,6 @@ function __snowpack__injectStyle(css) {
   headEl.appendChild(styleEl);
 }
 __snowpack__injectStyle("/**\r\n * Generalized focus treatment for components \r\n */\n.focus-treatment:focus {\n  outline: none; }\n\n.bolt-focus-visible .bolt-tab.focus-treatment:focus, .bolt-focus-visible .bolt-tab.focus-treatment.focused {\n  border-radius: 3px;\n  animation: ms-focus-shadow-with-border-pulse 4s ease-in-out infinite;\n  box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.23), 0 0 0 1px rgba(0, 120, 212, 1);\n  box-shadow: 0 0 0 3px var(--focus-pulse-max-color,rgba(0, 120, 212, 0.23)), 0 0 0 1px var(--focus-border-color,rgba(0, 120, 212, 1)); }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-focus-visible .bolt-tab.focus-treatment:focus, .bolt-focus-visible .bolt-tab.focus-treatment.focused {\n      animation: none; } }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-focus-visible .bolt-tab.focus-treatment:focus, .bolt-focus-visible .bolt-tab.focus-treatment.focused {\n      border: 1px solid Highlight;\n      forced-color-adjust: none;\n      color: windowtext; }\n      .bolt-focus-visible .bolt-tab.focus-treatment:focus > *, .bolt-focus-visible .bolt-tab.focus-treatment.focused > * {\n        forced-color-adjust: auto; } }\n\n.bolt-tab {\n  color: inherit; }\n\n.bolt-tabbar .vss-FilterBar {\n  margin-top: 0px;\n  margin-bottom: 0px;\n  margin-left: 8px;\n  height: 32px; }\n  .bolt-tabbar .vss-FilterBar .vss-FilterBar--list {\n    align-items: center; }\n    .bolt-tabbar .vss-FilterBar .vss-FilterBar--list .vss-FilterBar--item.vss-FilterBar--item-keyword-container {\n      margin-right: 0px; }\n    .bolt-tabbar .vss-FilterBar .vss-FilterBar--list .vss-FilterBar--right-items .vss-FilterBar--action {\n      display: none; }\n\n.bolt-tabbar.sticky {\n  position: sticky;\n  background-color: rgba(255, 255, 255, 1);\n  background-color: var(--background-color,rgba(255, 255, 255, 1));\n  z-index: 2;\n  top: 0px; }\n\n.bolt-tabbar-grey.sticky {\n  background-color: rgba( 248, 248, 248 ,  1 );\n  background-color: rgba( var(--palette-neutral-2,248, 248, 248) ,  1 ); }\n\n.bolt-tabbar-on-callout.sticky {\n  background-color: rgba(255, 255, 255, 1);\n  background-color: var(--callout-background-color,rgba(255, 255, 255, 1)); }\n\n@supports (-ms-ime-align: auto) {\n  .bolt-tabbar.sticky.sticky {\n    position: relative; } }\n\n@media screen and (max-width: 600px) {\n  .bolt-tabbar-tabs {\n    overflow-x: auto; } }\n\n.bolt-tabbar-tabs.compact .bolt-tab {\n  height: 2rem;\n  text-decoration: none;\n  cursor: pointer;\n  background-color: transparent;\n  color: rgba(0, 0, 0, .9);\n  color: var(--text-primary-color,rgba(0, 0, 0, .9));\n  display: inline-block;\n  margin-right: 0px;\n  padding: 0 8px;\n  text-align: center;\n  position: relative;\n  border: 0;\n  overflow: visible; }\n  .bolt-tabbar-tabs.compact .bolt-tab .bolt-tab-text {\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis; }\n  .bolt-tabbar-tabs.compact .bolt-tab .bolt-tab-inner-container {\n    height: 100%;\n    display: flex;\n    align-items: center; }\n  .bolt-tabbar-tabs.compact .bolt-tab .bolt-tab-badge {\n    margin-left: 4px;\n    max-width: 80px;\n    cursor: pointer; }\n    .bolt-tabbar-tabs.compact .bolt-tab .bolt-tab-badge .bolt-pill-focusable {\n      overflow: hidden; }\n  .bolt-tabbar-tabs.compact .bolt-tab:last-child {\n    margin-right: 0; }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-tabbar-tabs.compact .bolt-tab {\n      border: 1px solid transparent; } }\n  .bolt-tabbar-tabs.compact .bolt-tab:hover {\n    color: inherit; }\n    @media screen and (-ms-high-contrast: active) {\n      .bolt-tabbar-tabs.compact .bolt-tab:hover {\n        border-color: Highlight; } }\n  .bolt-tabbar-tabs.compact .bolt-tab .bolt-tab-text::before {\n    content: attr(data-content);\n    display: block;\n    font-weight: normal;\n    height: 0px;\n    visibility: hidden; }\n  .bolt-tabbar-tabs.compact .bolt-tab .bolt-tab-text::after {\n    content: attr(data-content);\n    display: block;\n    font-weight: 600;\n    height: 0px;\n    visibility: hidden; }\n  .bolt-tabbar-tabs.compact .bolt-tab .bolt-tab-icon + .bolt-tab-text {\n    margin-left: 4px; }\n  .bolt-tabbar-tabs.compact .bolt-tab.selected .bolt-tab-inner-container {\n    font-weight: 600;\n    padding-top: 2px;\n    border-bottom: 2px solid rgba(0, 120, 212, 1);\n    border-bottom: 2px solid var(--communication-background,rgba(0, 120, 212, 1)); }\n\n.bolt-tabbar-tabs.tall .bolt-tab {\n  height: 3rem;\n  text-decoration: none;\n  cursor: pointer;\n  background-color: transparent;\n  color: rgba(0, 0, 0, .9);\n  color: var(--text-primary-color,rgba(0, 0, 0, .9));\n  display: inline-block;\n  margin-right: 0px;\n  padding: 0 8px;\n  text-align: center;\n  position: relative;\n  border: 0;\n  overflow: visible; }\n  .bolt-tabbar-tabs.tall .bolt-tab .bolt-tab-text {\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis; }\n  .bolt-tabbar-tabs.tall .bolt-tab .bolt-tab-inner-container {\n    height: 100%;\n    display: flex;\n    align-items: center; }\n  .bolt-tabbar-tabs.tall .bolt-tab .bolt-tab-badge {\n    margin-left: 4px;\n    max-width: 80px;\n    cursor: pointer; }\n    .bolt-tabbar-tabs.tall .bolt-tab .bolt-tab-badge .bolt-pill-focusable {\n      overflow: hidden; }\n  .bolt-tabbar-tabs.tall .bolt-tab:last-child {\n    margin-right: 0; }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-tabbar-tabs.tall .bolt-tab {\n      border: 1px solid transparent; } }\n  .bolt-tabbar-tabs.tall .bolt-tab:hover {\n    color: inherit; }\n    @media screen and (-ms-high-contrast: active) {\n      .bolt-tabbar-tabs.tall .bolt-tab:hover {\n        border-color: Highlight; } }\n  .bolt-tabbar-tabs.tall .bolt-tab .bolt-tab-text::before {\n    content: attr(data-content);\n    display: block;\n    font-weight: normal;\n    height: 0px;\n    visibility: hidden; }\n  .bolt-tabbar-tabs.tall .bolt-tab .bolt-tab-text::after {\n    content: attr(data-content);\n    display: block;\n    font-weight: 600;\n    height: 0px;\n    visibility: hidden; }\n  .bolt-tabbar-tabs.tall .bolt-tab .bolt-tab-icon + .bolt-tab-text {\n    margin-left: 4px; }\n  .bolt-tabbar-tabs.tall .bolt-tab.selected .bolt-tab-inner-container {\n    font-weight: 600;\n    padding-top: 2px;\n    border-bottom: 2px solid rgba(0, 120, 212, 1);\n    border-bottom: 2px solid var(--communication-background,rgba(0, 120, 212, 1)); }\n\n.bolt-tabbar-tabs.large-link .bolt-tab {\n  height: 2.5rem;\n  text-decoration: none;\n  cursor: pointer;\n  background-color: transparent;\n  color: rgba(0, 0, 0, .9);\n  color: var(--text-primary-color,rgba(0, 0, 0, .9));\n  display: inline-block;\n  margin-right: 0px;\n  padding: 0 8px;\n  text-align: center;\n  position: relative;\n  border: 0;\n  overflow: visible; }\n  .bolt-tabbar-tabs.large-link .bolt-tab .bolt-tab-text {\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis; }\n  .bolt-tabbar-tabs.large-link .bolt-tab .bolt-tab-inner-container {\n    height: 100%;\n    display: flex;\n    align-items: center; }\n  .bolt-tabbar-tabs.large-link .bolt-tab .bolt-tab-badge {\n    margin-left: 4px;\n    max-width: 80px;\n    cursor: pointer; }\n    .bolt-tabbar-tabs.large-link .bolt-tab .bolt-tab-badge .bolt-pill-focusable {\n      overflow: hidden; }\n  .bolt-tabbar-tabs.large-link .bolt-tab:last-child {\n    margin-right: 0; }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-tabbar-tabs.large-link .bolt-tab {\n      border: 1px solid transparent; } }\n  .bolt-tabbar-tabs.large-link .bolt-tab:hover {\n    color: inherit; }\n    @media screen and (-ms-high-contrast: active) {\n      .bolt-tabbar-tabs.large-link .bolt-tab:hover {\n        border-color: Highlight; } }\n  .bolt-tabbar-tabs.large-link .bolt-tab .bolt-tab-text::before {\n    content: attr(data-content);\n    display: block;\n    font-weight: normal;\n    height: 0px;\n    visibility: hidden; }\n  .bolt-tabbar-tabs.large-link .bolt-tab .bolt-tab-text::after {\n    content: attr(data-content);\n    display: block;\n    font-weight: 600;\n    height: 0px;\n    visibility: hidden; }\n  .bolt-tabbar-tabs.large-link .bolt-tab .bolt-tab-icon + .bolt-tab-text {\n    margin-left: 4px; }\n  .bolt-tabbar-tabs.large-link .bolt-tab.selected .bolt-tab-inner-container {\n    font-weight: 600;\n    padding-top: 2px;\n    border-bottom: 2px solid rgba(0, 120, 212, 1);\n    border-bottom: 2px solid var(--communication-background,rgba(0, 120, 212, 1)); }\n\n.bolt-tablist {\n  border-right: 1px solid rgba(0, 0, 0, 0.20);\n  border-right: 1px solid var(--palette-black-alpha-20,rgba(0, 0, 0, 0.20));\n  overflow: auto; }\n\n.bolt-tablist-tabs .bolt-tab {\n  height: 32px;\n  text-decoration: none;\n  cursor: pointer;\n  background-color: transparent;\n  color: rgba(0, 0, 0, .9);\n  color: var(--text-primary-color,rgba(0, 0, 0, .9));\n  display: inline-block;\n  padding-left: 32px; }\n  .bolt-tablist-tabs .bolt-tab .bolt-tab-text {\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis; }\n  .bolt-tablist-tabs .bolt-tab .bolt-tab-inner-container {\n    height: 100%;\n    display: flex;\n    align-items: center; }\n  .bolt-tablist-tabs .bolt-tab .bolt-tab-badge {\n    margin-left: 4px;\n    max-width: 80px;\n    cursor: pointer; }\n    .bolt-tablist-tabs .bolt-tab .bolt-tab-badge .bolt-pill-focusable {\n      overflow: hidden; }\n  .bolt-tablist-tabs .bolt-tab.selected {\n    background-color: rgba( 234, 234, 234 ,  1 );\n    background-color: rgba( var(--palette-neutral-8,234, 234, 234) ,  1 ); }\n    @media screen and (-ms-high-contrast: active) {\n      .bolt-tablist-tabs .bolt-tab.selected {\n        background: highlight;\n        forced-color-adjust: none; }\n        .bolt-tablist-tabs .bolt-tab.selected .bolt-tab-text {\n          color: windowtext;\n          background: window; } }\n\n.bolt-tablist-tabs a.bolt-tab {\n  color: inherit; }\n\n.bolt-tablist-heading {\n  align-items: center;\n  height: 32px;\n  margin-top: 16px;\n  padding-left: 32px; }\n\n.bolt-tablist-title {\n  height: 48px;\n  align-items: center;\n  display: flex;\n  padding-left: 32px; }\n\n.bolt-tablist-subtitle {\n  padding-left: 32px; }\n");
-
-/** SNOWPACK INJECT STYLE: azure-devops-ui/Components/Pill/Pill.css */
-function __snowpack__injectStyle$1(css) {
-  const headEl = document.head || document.getElementsByTagName('head')[0];
-  const styleEl = document.createElement('style');
-  styleEl.type = 'text/css';
-  if (styleEl.styleSheet) {
-    styleEl.styleSheet.cssText = css;
-  } else {
-    styleEl.appendChild(document.createTextNode(css));
-  }
-  headEl.appendChild(styleEl);
-}
-__snowpack__injectStyle$1("/* \r\n    We're using absolute height and negative margins in this file\r\n    this is because borders make a lot of this logic weird, and the spec calls for overlap of borders\r\n    between what are logically parent and child elements\r\n    \r\n    eg. in Outlined pills, the button focus circle should exactly overlap the pill's outline\r\n\r\n    Using negative margin means we need to do less padding management of the container based on\r\n    what elements it happens to contain, and elements can just intrude on the left-right padding of the parent\r\n    */\n.bolt-pill {\n  border-radius: 120px;\n  border: 1px solid transparent;\n  white-space: nowrap; }\n  .bolt-pill.clickable {\n    cursor: pointer; }\n  .bolt-pill.count .bolt-pill-content {\n    font-weight: 600; }\n  .bolt-pill .bolt-pill-content {\n    margin: 0px 0.5rem;\n    padding: 2px 0; }\n  .bolt-pill .bolt-pill-icon {\n    margin-left: 0.25rem;\n    margin-right: 0.375rem; }\n  .bolt-pill.compact.has-filled-visual .bolt-pill-content, .bolt-pill.compact.has-icon .bolt-pill-content, .bolt-pill.regular.has-filled-visual .bolt-pill-content, .bolt-pill.regular.has-icon .bolt-pill-content, .bolt-pill.large.has-filled-visual .bolt-pill-content, .bolt-pill.large.has-icon .bolt-pill-content {\n    margin-left: 0; }\n  .bolt-pill.compact.has-remove-button .bolt-pill-content, .bolt-pill.regular.has-remove-button .bolt-pill-content, .bolt-pill.large.has-remove-button .bolt-pill-content {\n    margin-right: 0.375rem; }\n  .bolt-pill.compact {\n    font-size: 0.6875rem; }\n  .bolt-pill.regular {\n    font-size: 0.75rem; }\n    .bolt-pill.regular .bolt-pill-filled-visual {\n      width: 1.25rem; }\n  .bolt-pill.large {\n    font-size: 0.875rem; }\n    .bolt-pill.large .bolt-pill-filled-visual {\n      width: 1.5rem; }\n  .bolt-pill.standard {\n    background-color: rgba(0, 0, 0, 0.06);\n    background-color: var(--palette-black-alpha-6,rgba(0, 0, 0, 0.06)); }\n    .bolt-pill.standard.clickable.hover {\n      background-color: rgba(0, 0, 0, 0.10);\n      background-color: var(--palette-black-alpha-10,rgba(0, 0, 0, 0.10)); }\n  .bolt-pill.outlined {\n    background-color: transparent;\n    border-color: rgba(0, 0, 0, 0.20);\n    border-color: var(--palette-black-alpha-20,rgba(0, 0, 0, 0.20)); }\n    .bolt-pill.outlined.clickable.hover {\n      background-color: rgba(0, 0, 0, 0.06);\n      background-color: var(--palette-black-alpha-6,rgba(0, 0, 0, 0.06)); }\n    .bolt-pill.outlined .bolt-pill-button {\n      border: 1px solid transparent; }\n  .bolt-pill.colored.dark {\n    color: white; }\n  .bolt-pill.colored.light {\n    color: black; }\n\n.bolt-focus-visible .bolt-pill:focus {\n  border-color: rgba(0, 120, 212, 1);\n  border-color: var(--communication-background,rgba(0, 120, 212, 1));\n  animation: ms-focus-shadow-pulse 4s ease-in-out infinite;\n  box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.23);\n  box-shadow: 0 0 0 3px var(--focus-pulse-max-color,rgba(0, 120, 212, 0.23));\n  outline: none; }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-focus-visible .bolt-pill:focus {\n      animation: none; } }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-focus-visible .bolt-pill:focus {\n      forced-color-adjust: none;\n      border-color: highlight; } }\n  @media screen and (-ms-high-contrast: black-on-white) {\n    .bolt-focus-visible .bolt-pill:focus {\n      outline: 1px solid highlight;\n      outline-offset: 1px; } }\n  @media screen and (-ms-high-contrast: active) {\n    .bolt-focus-visible .bolt-pill:focus {\n      background: transparent !important;\n      color: windowtext; } }\n\n.bolt-pill-icon {\n  padding: 2px; }\n\n.bolt-pill-filled-visual {\n  overflow: hidden;\n  border-radius: 50%;\n  margin-right: 4px; }\n\nbutton.bolt-pill-button.bolt-button.icon-only {\n  border-radius: 50%;\n  color: inherit;\n  margin-left: auto;\n  padding: 2px; }\n  button.bolt-pill-button.bolt-button.icon-only:hover {\n    background-color: rgba(0, 0, 0, 0.06);\n    background-color: var(--palette-black-alpha-6,rgba(0, 0, 0, 0.06)); }\n");
-
-var PillSize;
-(function (PillSize) {
-    PillSize[PillSize["compact"] = 0] = "compact";
-    PillSize[PillSize["regular"] = 1] = "regular";
-    PillSize[PillSize["large"] = 2] = "large";
-})(PillSize || (PillSize = {}));
-var PillVariant;
-(function (PillVariant) {
-    PillVariant[PillVariant["standard"] = 0] = "standard";
-    PillVariant[PillVariant["outlined"] = 1] = "outlined";
-    PillVariant[PillVariant["colored"] = 2] = "colored";
-})(PillVariant || (PillVariant = {}));
-
-var Pill = /** @class */ (function (_super) {
-    __extends(Pill, _super);
-    function Pill(props) {
-        var _this = _super.call(this, props) || this;
-        _this.getChildText = function () {
-            var text = "";
-            react.Children.map(_this.props.children, function (child) {
-                if (typeof child === "string") {
-                    text += child;
-                }
-            });
-            return text;
-        };
-        _this.onKeyDown = function (event) {
-            var keyCode = event.which;
-            if (keyCode === KeyCode.enter) {
-                _this.props.onClick && _this.props.onClick();
-            }
-        };
-        _this.onMouseEnter = function (event) {
-            _this.props.onMouseEnter && _this.props.onMouseEnter(event);
-            _this.setState({
-                isHoveringPrimaryElement: true
-            });
-        };
-        /**
-         * onMouseLeaveButton fires first; if it leaves the container too
-         * onMouseLeave will setState again, which will prevent weird behavior
-         */
-        _this.onMouseLeave = function (event) {
-            _this.props.onMouseLeave && _this.props.onMouseLeave(event);
-            _this.setState({
-                isHoveringPrimaryElement: false
-            });
-        };
-        _this.onMouseLeaveButton = function () {
-            _this.setState({
-                isHoveringPrimaryElement: true
-            });
-        };
-        _this.onMouseOverButton = function () {
-            _this.setState({
-                isHoveringPrimaryElement: false
-            });
-        };
-        _this.state = {
-            isHoveringPrimaryElement: false
-        };
-        return _this;
-    }
-    Pill.getColorStyle = function (color, isHoveringPrimaryElement, onClick) {
-        if (!color) {
-            return undefined;
-        }
-        var renderColor = onClick && isHoveringPrimaryElement ? darken(color, 0.06) : color;
-        return { backgroundColor: getColorString(renderColor) };
-    };
-    Pill.getSizeClass = function (size) {
-        switch (size) {
-            case PillSize.compact:
-                return "compact";
-            case PillSize.large:
-                return "large";
-            case PillSize.regular:
-            default:
-                return "regular";
-        }
-    };
-    Pill.getVariantClass = function (variant, color) {
-        switch (variant) {
-            case PillVariant.outlined:
-                return "outlined";
-            case PillVariant.colored:
-                if (color) {
-                    return css("colored", isDark(color) ? "dark" : "light");
-                }
-                else {
-                    return "standard";
-                }
-            case PillVariant.standard:
-            default:
-                return "standard";
-        }
-    };
-    Pill.getDerivedStateFromProps = function (props, state) {
-        return state;
-    };
-    Pill.prototype.render = function () {
-        var _this = this;
-        var _a = this.props, ariaHidden = _a.ariaHidden, contentClassName = _a.contentClassName, className = _a.className, color = _a.color, _b = _a.containsCount, containsCount = _b === void 0 ? false : _b, iconProps = _a.iconProps, id = _a.id, onClick = _a.onClick, onFocus = _a.onFocus, onRemoveClick = _a.onRemoveClick, onRenderFilledVisual = _a.onRenderFilledVisual, _c = _a.size, size = _c === void 0 ? PillSize.regular : _c, _d = _a.variant, variant = _d === void 0 ? PillVariant.standard : _d;
-        var isHoveringPrimaryElement = this.state.isHoveringPrimaryElement;
-        var ariaLabel = this.props.ariaLabel || this.getChildText();
-        return (react.createElement(FocusZoneContext.Consumer, null, function (zoneContext) { return (react.createElement("div", { "aria-label": ariaLabel, "aria-hidden": ariaHidden, className: css(className, "bolt-pill flex-row flex-center", Pill.getVariantClass(variant, color), Pill.getSizeClass(size), containsCount && "count", isHoveringPrimaryElement && "hover", onClick && "clickable", onRenderFilledVisual && "has-filled-visual", iconProps && !onRenderFilledVisual && "has-icon", onRemoveClick && "has-remove-button"), "data-focuszone": !_this.props.excludeFocusZone ? zoneContext.focuszoneId : undefined, id: getSafeId(id), onClick: onClick, onFocus: onFocus, onKeyDown: _this.onKeyDown, onMouseEnter: _this.onMouseEnter, onMouseLeave: _this.onMouseLeave, role: onClick ? "button" : "presentation", style: Pill.getColorStyle(color, isHoveringPrimaryElement, onClick), tabIndex: onClick || onFocus ? getTabIndex(_this.props) : undefined },
-            onRenderFilledVisual && react.createElement("div", { className: "bolt-pill-filled-visual flex-noshrink" }, onRenderFilledVisual()),
-            iconProps && !onRenderFilledVisual && react.createElement(Icon, __assign({}, iconProps, { className: css(iconProps.className, "bolt-pill-icon") })),
-            react.createElement("div", { className: css(contentClassName, "bolt-pill-content text-ellipsis") }, _this.props.children),
-            onRemoveClick && (react.createElement(Button, { ariaLabel: format(RemovePillLabel, ariaLabel), className: "bolt-pill-button", iconProps: { iconName: "Cancel", size: IconSize.inherit }, onClick: onRemoveClick, onMouseLeave: _this.onMouseLeaveButton, onMouseOver: _this.onMouseOverButton, subtle: true, tooltipProps: { text: format(RemovePillLabel, ariaLabel) } })))); }));
-    };
-    return Pill;
-}(react.Component));
 
 var TabBadge = function (props) {
     var children = props.children, className = props.className, _a = props.containsCount, containsCount = _a === void 0 ? true : _a, tooltipProps = props.tooltipProps;
@@ -683,4 +487,4 @@ var TabGroupProvider = /** @class */ (function (_super) {
     return TabContent;
 })(react.Component));
 
-export { ScreenContext as S, TabProviderContext as T, ScreenSize as a, TabProvider as b, TabGroupProvider as c };
+export { TabProviderContext as T, TabProvider as a, TabGroupProvider as b };

@@ -1,7 +1,8 @@
-import { _ as __extends } from './Observable-2864a2f4.js';
-import { c as css, g as getSafeId } from './Util-26aa457f.js';
+import { _ as __extends } from './Observable-24aa1084.js';
+import './core-1947a0ef.js';
 import { r as react } from './index-abdc4d2d.js';
-import { O as Observer } from './SelectionObserver-43ed5fc0.js';
+import { O as Observer } from './SelectionObserver-a72f3be5.js';
+import { c as css, g as getSafeId } from './Util-e30cbaf3.js';
 
 /** SNOWPACK INJECT STYLE: azure-devops-ui/Components/FormItem/FormItem.css */
 function __snowpack__injectStyle(css) {
@@ -42,4 +43,4 @@ var FormItem = /** @class */ (function (_super) {
     return FormItem;
 }(react.Component));
 
-export { FormItem as F, FormItemContext as a };
+export { FormItemContext as F, FormItem as a };

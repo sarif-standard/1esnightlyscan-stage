@@ -5,7 +5,7 @@ import ReactDOM from "../web_modules/react-dom.js";
 import {App} from "./app.js";
 const instance = new PublicClientApplication({
   auth: {
-    clientId: "1c5cf812-7307-4f30-9c68-9e4371110062",
+    clientId: "16acf595-5442-4b4b-8450-88b6ebfc098b",
     authority: "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47"
   }
 });

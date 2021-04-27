@@ -114,3 +114,9 @@ h1 {
 .flex-00auto {
   flex: 0 0 auto;
 }
+
+.seeMore {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}

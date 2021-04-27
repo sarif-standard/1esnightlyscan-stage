@@ -1,7 +1,8 @@
-import { a as __assign } from './Observable-2864a2f4.js';
-import { g as getSafeId, c as css } from './Util-26aa457f.js';
+import { a as __assign } from './Observable-24aa1084.js';
+import './core-1947a0ef.js';
 import { r as react } from './index-abdc4d2d.js';
-import { T as Tooltip } from './Tooltip-cceb4663.js';
+import { T as Tooltip } from './Tooltip-69aedae2.js';
+import { g as getSafeId, c as css } from './Util-e30cbaf3.js';
 
 /** SNOWPACK INJECT STYLE: azure-devops-ui/Components/Icon/FabricIcons.css */
 function __snowpack__injectStyle(css) {

@@ -1,5 +1,5 @@
-import { _ as __extends, a as __assign, c as ObservableLike } from './Observable-2864a2f4.js';
-import './Util-26aa457f.js';
+import { _ as __extends, a as __assign, c as ObservableLike } from './Observable-24aa1084.js';
+import './core-1947a0ef.js';
 import { r as react } from './index-abdc4d2d.js';
 
 /**
@@ -206,7 +206,7 @@ function updateSubscriptionsAndState(oldProps, newProps, state, component) {
     return null;
 }
 
-/** @class */ ((function (_super) {
+var ItemsObserver = /** @class */ (function (_super) {
     __extends(ItemsObserver, _super);
     function ItemsObserver() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -229,7 +229,7 @@ function updateSubscriptionsAndState(oldProps, newProps, state, component) {
         return react.createElement(Observer, { itemsObservable: itemsObservable }, this.props.children);
     };
     return ItemsObserver;
-})(react.Component));
+}(react.Component));
 
 /** @class */ ((function (_super) {
     __extends(ReadyableArrayObserver, _super);
@@ -268,7 +268,7 @@ function updateSubscriptionsAndState(oldProps, newProps, state, component) {
     return ReadyableArrayObserver;
 })(react.Component));
 
-/** @class */ ((function (_super) {
+var SelectionObserver = /** @class */ (function (_super) {
     __extends(SelectionObserver, _super);
     function SelectionObserver() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -289,6 +289,6 @@ function updateSubscriptionsAndState(oldProps, newProps, state, component) {
         return react.createElement(Observer, { selectionObservable: selectionObservable }, this.props.children);
     };
     return SelectionObserver;
-})(react.Component));
+}(react.Component));
 
-export { ArrayItemProvider as A, Observer as O };
+export { ArrayItemProvider as A, ItemsObserver as I, Observer as O, SelectionObserver as S, getItemsValue as g };

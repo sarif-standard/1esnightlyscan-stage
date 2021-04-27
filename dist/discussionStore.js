@@ -13,9 +13,11 @@ import {CosmosClient} from "../web_modules/@azure/cosmos.js";
 import {observable} from "../web_modules/mobx.js";
 import {deepObserve} from "../web_modules/mobx-utils.js";
 export class Comment {
-  constructor(who, when, text) {
+  constructor(who, when, roles, votes, text) {
     this.who = who;
     this.when = when;
+    this.roles = roles;
+    this.votes = votes;
     this.text = text;
   }
 }

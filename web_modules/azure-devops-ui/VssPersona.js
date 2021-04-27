@@ -1,13 +1,15 @@
-import { _ as __extends, a as __assign } from '../common/Observable-2864a2f4.js';
-import { c as css, K as KeyCode } from '../common/Util-26aa457f.js';
+import { _ as __extends, a as __assign } from '../common/Observable-24aa1084.js';
+import '../common/core-1947a0ef.js';
 import { r as react } from '../common/index-abdc4d2d.js';
-import { I as Icon } from '../common/Icon.Props-7d7e0951.js';
-import { T as Tooltip } from '../common/Tooltip-cceb4663.js';
+import { I as Icon } from '../common/Icon.Props-be292e60.js';
+import { T as Tooltip } from '../common/Tooltip-69aedae2.js';
+import { c as css, K as KeyCode } from '../common/Util-e30cbaf3.js';
 import { g as getColorString } from '../common/Color-c39ec9d4.js';
 import '../common/process-2545f00a.js';
 import '../common/_commonjsHelpers-4f955397.js';
 import '../common/index-2be6b7dd.js';
-import '../common/SelectionObserver-43ed5fc0.js';
+import '../common/SelectionObserver-a72f3be5.js';
+import '../common/Surface-779be6fe.js';
 
 /** SNOWPACK INJECT STYLE: azure-devops-ui/Components/VssPersona/VssPersona.css */
 function __snowpack__injectStyle(css) {

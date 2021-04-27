@@ -1,11 +1,12 @@
-import { _ as __extends, a as __assign } from './Observable-2864a2f4.js';
-import { d as childCount, g as getSafeId, c as css, K as KeyCode, e as setFocusVisible } from './Util-26aa457f.js';
+import { _ as __extends, a as __assign } from './Observable-24aa1084.js';
+import './core-1947a0ef.js';
 import { r as react } from './index-abdc4d2d.js';
 import { a as announce } from './Accessibility-e11a7e50.js';
-import { F as FocusZoneContext, T as Tooltip, a as FocusGroupContext, M as MouseWithin, L as Location } from './Tooltip-cceb4663.js';
+import { F as FocusZoneContext, T as Tooltip, a as FocusGroupContext, M as MouseWithin, L as Location } from './Tooltip-69aedae2.js';
 import { C as Collapsed, E as Expanded } from './Resources.Core-6b4f8906.js';
-import { g as getTabIndex } from './Focus-d5604f23.js';
-import { I as Icon, a as IconSize } from './Icon.Props-7d7e0951.js';
+import { d as childCount, g as getSafeId, c as css, K as KeyCode, e as setFocusVisible } from './Util-e30cbaf3.js';
+import { g as getTabIndex } from './Focus-dd57f317.js';
+import { I as Icon, a as IconSize } from './Icon.Props-be292e60.js';
 
 /** SNOWPACK INJECT STYLE: azure-devops-ui/Components/Button/Button.css */
 function __snowpack__injectStyle(css) {
@@ -345,4 +346,4 @@ var ExpandableButton = /** @class */ (function (_super) {
     return ExpandableButton;
 }(react.Component));
 
-export { Button as B, ExpandableButton as E };
+export { Button as B, ExpandableButton as E, Expandable as a };
