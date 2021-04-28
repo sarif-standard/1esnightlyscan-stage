@@ -34,16 +34,17 @@ function Meter(props) {
 }
 function PersonaStack(props) {
   const {names} = props;
-  const personas = names.slice(0, 3).map((_name, i) => /* @__PURE__ */ React.createElement(VssPersona, {
+  const personas = names.slice(0, 3).map((name, i) => /* @__PURE__ */ React.createElement(VssPersona, {
     key: i,
+    displayName: name,
     size: "extra-extra-small",
     className: "margin-left-4"
   }));
-  const moreThanThree = Math.max(0, names.length - 3);
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, personas, !!moreThanThree && /* @__PURE__ */ React.createElement(Pill, {
+  const moreThanThree = names.slice(3);
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, personas, !!moreThanThree.length && /* @__PURE__ */ React.createElement(Pill, {
     size: PillSize.compact,
     className: "margin-left-4"
-  }, "+", moreThanThree));
+  }, "+", moreThanThree.length));
 }
 export let Discussion2 = class extends Component {
   constructor() {
@@ -54,15 +55,15 @@ export let Discussion2 = class extends Component {
     const {commentBeingEdited} = this;
     const {store, user} = this.props;
     const sorted = store.comments.slice().sort((a, b) => new Date(b.when).getTime() - new Date(a.when).getTime());
-    const voteCounts = new Map([...voteMap.keys()].map((key) => [key, 0]));
+    const voteCounts = new Map([...voteMap.keys()].map((key) => [key, []]));
     store.comments.forEach((comment) => {
       comment.votes.forEach((vote) => {
-        voteCounts.set(vote, voteCounts.get(vote) + 1);
+        voteCounts.get(vote).push(comment.who);
       });
     });
-    const voteItems = [...voteCounts.entries()].map(([id, count]) => ({id, count}));
-    voteItems.sort((a, b) => b.count - a.count);
-    const maxCount = voteItems.reduce((max, curr) => Math.max(max, curr.count), 1);
+    const voteItems = [...voteCounts.entries()].map(([id, names]) => ({id, names}));
+    voteItems.sort((a, b) => b.names.length - a.names.length);
+    const maxCount = voteItems.reduce((max, curr) => Math.max(max, curr.names.length), 1);
     const userAlreadyLeftAComment = store.comments.some((comment) => comment.who === user);
     return /* @__PURE__ */ React.createElement(SurfaceContext.Provider, {
       value: {background: SurfaceBackground.neutral}
@@ -82,9 +83,9 @@ export let Discussion2 = class extends Component {
     }, voteMap.get(voteItem.id)), /* @__PURE__ */ React.createElement("div", {
       className: "flex-row flex-center"
     }, /* @__PURE__ */ React.createElement(PersonaStack, {
-      names: Array(voteItem.count).fill("")
+      names: voteItem.names
     }))), /* @__PURE__ */ React.createElement(Meter, {
-      value: voteItem.count,
+      value: voteItem.names.length,
       maxValue: maxCount
     }))))), /* @__PURE__ */ React.createElement("div", {
       className: "flex-row justify-end"
@@ -105,6 +106,7 @@ export let Discussion2 = class extends Component {
           className: "flex-row rhythm-horizontal-8"
         }, /* @__PURE__ */ React.createElement(VssPersona, {
           key: i,
+          displayName: comment.who,
           size: "small"
         }), /* @__PURE__ */ React.createElement("span", {
           className: "flex-column justify-center rhythm-vertical-4"
@@ -148,7 +150,7 @@ export let Discussion2 = class extends Component {
         });
         this.commentBeingEdited = void 0;
       }
-    }) : /* @__PURE__ */ React.createElement(React.Fragment, null, !!comment.votes.length && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Vote", comment.votes.length ? "s" : "", ":"), " ", comment.votes.map((vote) => voteMap.get(vote)).join(" ")), !!comment.roles.length && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Role", comment.roles.length ? "s" : "", ":"), " ", comment.roles.map((role) => roleMap.get(role)).join(" ")), !!comment.text && /* @__PURE__ */ React.createElement("div", {
+    }) : /* @__PURE__ */ React.createElement(React.Fragment, null, !!comment.votes.length && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Vote", comment.votes.length > 1 ? "s" : "", ":"), " ", comment.votes.map((vote) => voteMap.get(vote)).join(" ")), !!comment.roles.length && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Role", comment.roles.length > 1 ? "s" : "", ":"), " ", comment.roles.map((role) => roleMap.get(role)).join(" ")), !!comment.text && /* @__PURE__ */ React.createElement("div", {
       className: "margin-top-12"
     }, /* @__PURE__ */ React.createElement("strong", null, "Comments:"), " ", comment.text))))));
   }
