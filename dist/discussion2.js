@@ -38,7 +38,7 @@ function PersonaStack(props) {
     key: i,
     displayName: name,
     size: "extra-extra-small",
-    className: "margin-left-4"
+    className: `personaStacking zIndex-${2 - i}`
   }));
   const moreThanThree = names.slice(3);
   return /* @__PURE__ */ React.createElement(React.Fragment, null, personas, !!moreThanThree.length && /* @__PURE__ */ React.createElement(Pill, {

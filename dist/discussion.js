@@ -76,7 +76,7 @@ export let Discussion = class extends Component {
     }), /* @__PURE__ */ React.createElement(CardContent, {
       className: "discussion"
     }, sorted.map((comment, i) => {
-      const {who, when, roles: role, votes: vote, text} = comment;
+      const {who, when, roles, votes, text} = comment;
       return /* @__PURE__ */ React.createElement("div", {
         className: "comment flex-row flex-start",
         key: i
@@ -93,16 +93,16 @@ export let Discussion = class extends Component {
       }, /* @__PURE__ */ React.createElement(Ago, {
         date: new Date(when)
       }))), isEditing === comment ? /* @__PURE__ */ React.createElement(CommentEditor, {
-        role,
-        vote,
+        role: roles,
+        vote: votes,
         text,
         onCancel: () => {
           this.isEditing = void 0;
         },
-        onUpdate: (role2, vote2, text2) => {
+        onUpdate: (role, vote, text2) => {
           runInAction(() => {
-            comment.roles = role2;
-            comment.votes = vote2;
+            comment.roles = role;
+            comment.votes = vote;
             comment.text = text2;
           });
           this.isEditing = void 0;
@@ -115,9 +115,9 @@ export let Discussion = class extends Component {
       }, /* @__PURE__ */ React.createElement(Icon, {
         iconName: "Org",
         className: "margin-right-4"
-      }), pluralize("Role", role), ":"), /* @__PURE__ */ React.createElement("span", {
+      }), pluralize("Role", roles), ":"), /* @__PURE__ */ React.createElement("span", {
         className: "secondary-text"
-      }, " ", role.map((r) => roleMap.get(r)).join(" "))), /* @__PURE__ */ React.createElement("div", {
+      }, " ", roles.map((r) => roleMap.get(r)).join(" "))), /* @__PURE__ */ React.createElement("div", {
         style: {lineHeight: 1.5},
         className: "margin-bottom-8"
       }, /* @__PURE__ */ React.createElement("span", {
@@ -125,9 +125,9 @@ export let Discussion = class extends Component {
       }, /* @__PURE__ */ React.createElement(Icon, {
         iconName: "MultiSelect",
         className: "margin-right-4"
-      }), pluralize("Opinion", vote), ":"), /* @__PURE__ */ React.createElement("span", {
+      }), pluralize("Opinion", votes), ":"), /* @__PURE__ */ React.createElement("span", {
         className: "secondary-text"
-      }, " ", vote.map((v) => voteMap.get(v)).join(" "))), /* @__PURE__ */ React.createElement("div", {
+      }, " ", votes.map((v) => voteMap.get(v)).join(" "))), /* @__PURE__ */ React.createElement("div", {
         className: "",
         style: {lineHeight: 1.5}
       }, /* @__PURE__ */ React.createElement(TruncatedText, {
