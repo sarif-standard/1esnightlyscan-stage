@@ -15,7 +15,7 @@
 }
 
 .discussion2 {
-  min-width: 425px;
+  flex: 0 0 425px;
   padding: 32px;
   padding-left: 6px;
 }
