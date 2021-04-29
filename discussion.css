@@ -15,7 +15,7 @@
 }
 
 .discussion2 {
-  width: 400px;
+  min-width: 425px;
   padding: 32px;
   padding-left: 6px;
 }

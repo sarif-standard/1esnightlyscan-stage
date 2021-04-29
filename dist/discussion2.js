@@ -77,7 +77,7 @@ export let Discussion2 = class extends Component {
       key: voteItem.id,
       className: "flex-column"
     }, /* @__PURE__ */ React.createElement("div", {
-      className: "flex-row"
+      className: "flex-row rhythm-horizontal-4"
     }, /* @__PURE__ */ React.createElement("div", {
       className: "flex-grow text-ellipsis"
     }, voteMap.get(voteItem.id)), /* @__PURE__ */ React.createElement("div", {
@@ -111,8 +111,10 @@ export let Discussion2 = class extends Component {
         }), /* @__PURE__ */ React.createElement("span", {
           className: "flex-column justify-center rhythm-vertical-4"
         }, /* @__PURE__ */ React.createElement("span", {
-          className: "flex-row body-m rhythm-horizontal-8"
-        }, /* @__PURE__ */ React.createElement("span", null, comment.who), /* @__PURE__ */ React.createElement(Ago, {
+          className: "flex-row body-m rhythm-horizontal-8 "
+        }, /* @__PURE__ */ React.createElement("span", {
+          className: "text-ellipsis"
+        }, comment.who), /* @__PURE__ */ React.createElement(Ago, {
           date: new Date(comment.when),
           className: "secondary-text"
         }))))

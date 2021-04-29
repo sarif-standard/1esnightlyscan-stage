@@ -23,6 +23,12 @@ export default {
       return true;
     return void 0;
   },
+  get mockSomeResults() {
+    const value = getParam("mockSomeResults");
+    if (value === "")
+      return true;
+    return void 0;
+  },
   get repo() {
     return getParam("repo");
   },

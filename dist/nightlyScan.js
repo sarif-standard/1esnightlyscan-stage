@@ -2,6 +2,7 @@ import {InteractionType} from "../web_modules/@azure/msal-browser.js";
 import {AuthenticatedTemplate, UnauthenticatedTemplate, useIsAuthenticated, useMsal, useMsalAuthentication} from "../web_modules/@azure/msal-react.js";
 import swc from "../web_modules/@microsoft/sarif-web-component.js";
 import {Button} from "../web_modules/azure-devops-ui/Button.js";
+import {MoreButton} from "../web_modules/azure-devops-ui/Menu.js";
 import {Spinner} from "../web_modules/azure-devops-ui/Spinner.js";
 import React, {useEffect, useState} from "../web_modules/react.js";
 import {Age} from "./age.js";
@@ -11,7 +12,7 @@ import {download} from "./download.js";
 import {instance} from "./publicClientApplication.js";
 import {RepoStatus} from "./repoStatus.js";
 import {RevalidateButton} from "./revalidateButton.js";
-import {sarifLogZeroResults} from "./sarifLogZeroResults.js";
+import {sarifLogSomeResults, sarifLogZeroResults} from "./sampleSarifLog.js";
 import params from "./searchParams.js";
 const {Viewer} = swc;
 const discussionStore = new DiscussionStore(instance, params.secretHash);
@@ -48,6 +49,14 @@ export function NightlyScan() {
       return;
     if (params.mockZeroResults) {
       setSarif(sarifLogZeroResults);
+      if (params.mockRepoEnabled === void 0) {
+        const repoDisabled = sarifLogZeroResults?.runs?.[0]?.versionControlProvenance?.[0]?.properties?.isDisabled;
+        setRepoEnabled(repoDisabled == void 0 ? void 0 : !repoDisabled);
+      }
+      return;
+    }
+    if (params.mockSomeResults) {
+      setSarif(sarifLogSomeResults);
       if (params.mockRepoEnabled === void 0) {
         const repoDisabled = sarifLogZeroResults?.runs?.[0]?.versionControlProvenance?.[0]?.properties?.isDisabled;
         setRepoEnabled(repoDisabled == void 0 ? void 0 : !repoDisabled);
@@ -95,14 +104,22 @@ export function NightlyScan() {
     disabled: !sarif,
     getSnippets
   }), /* @__PURE__ */ React.createElement(Button, {
-    onClick: () => instance2.logout()
-  }, "Sign out ", accounts[0]?.username), /* @__PURE__ */ React.createElement(Button, {
     iconProps: {iconName: "Mail"},
     href: `mailto:caicredremediation@microsoft.com?subject=${encodeURIComponent(document.location.toString())}`
   }), /* @__PURE__ */ React.createElement(Button, {
     iconProps: {iconName: "Help"},
     href: "https://aka.ms/1esnightlyscan/help",
     target: "_blank"
+  }), /* @__PURE__ */ React.createElement(MoreButton, {
+    contextualMenuProps: {
+      menuProps: {id: "moreMenu", items: [
+        {
+          id: "signOut",
+          text: `Sign out ${accounts[0]?.username}`,
+          onActivate: () => void instance2.logout()
+        }
+      ]}
+    }
   }))), /* @__PURE__ */ React.createElement("div", {
     className: `viewer ${sarif ? "viewerActive" : ""}`
   }, /* @__PURE__ */ React.createElement("div", {
