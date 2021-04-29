@@ -9,42 +9,42 @@ var __decorate = (decorators, target, key, kind) => {
     __defProp(target, key, result);
   return result;
 };
-import {CosmosClient} from "../web_modules/@azure/cosmos.js";
 import {observable} from "../web_modules/mobx.js";
 import {deepObserve} from "../web_modules/mobx-utils.js";
-export class Comment {
-  constructor(who, when, roles, votes, text) {
-    this.who = who;
-    this.when = when;
-    this.roles = roles;
-    this.votes = votes;
-    this.text = text;
-  }
-}
 export class DiscussionStore {
-  constructor(secretHash) {
+  constructor(instance, secretHash) {
+    this.instance = instance;
     this.secretHash = secretHash;
     this.comments = [];
     if (!secretHash)
       return;
-    const client = new CosmosClient({
-      endpoint: "https://jeff-cosmos-db.documents.azure.com:443/",
-      key: "SrBeW9VezroEZJZzuI4K1N3pKiDWM66YtHZy3U1Z5CEmqGizo89955IJIFltcE1ccXUTn1Vf2cNig5o4bYJJLQ=="
-    });
     (async () => {
-      const container = this.container = await client.database("demo").container("secretHash");
-      const item = await container.item(secretHash, secretHash).read();
-      this.comments = item.resource?.comments ?? [];
+      const headers = await this.getHeaders();
+      const response = await fetch(`https://jefki210412.azurewebsites.net/discussions/${secretHash}`, {headers});
+      this.comments = await response.json();
       deepObserve(this.comments, () => this.publish());
     })();
   }
-  publish() {
+  async publish() {
     if (!this.secretHash)
       return;
-    this.container?.items.upsert({
-      id: this.secretHash,
-      comments: this.comments
+    const headers = await this.getHeaders();
+    headers.append("Content-Type", "application/json");
+    await fetch(`https://jefki210412.azurewebsites.net/discussions/${this.secretHash}`, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(this.comments)
     });
+  }
+  async getHeaders() {
+    const {instance} = this;
+    const headers = new Headers();
+    const {accessToken: funcToken} = await instance.acquireTokenSilent({
+      account: instance.getAllAccounts()[0],
+      scopes: ["api://ecd84172-7f45-4175-b1c2-f50301d8d705/Comments.ReadWrite"]
+    });
+    headers.append("Authorization", `Bearer ${funcToken}`);
+    return headers;
   }
 }
 __decorate([

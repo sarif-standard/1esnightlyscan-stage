@@ -1,6 +1,5 @@
 {
   "imports": {
-    "@azure/cosmos": "./@azure/cosmos.js",
     "@azure/msal-browser": "./@azure/msal-browser.js",
     "@azure/msal-react": "./@azure/msal-react.js",
     "@microsoft/sarif-web-component": "./@microsoft/sarif-web-component.js",

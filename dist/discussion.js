@@ -23,7 +23,7 @@ import {observer} from "../web_modules/mobx-react.js";
 import * as React from "../web_modules/react.js";
 import {Component, useState} from "../web_modules/react.js";
 import {CommentEditor} from "./commentEditor.js";
-import {Comment} from "./discussionStore.js";
+import {Comment} from "./comment.js";
 export const roleMap = new Map([
   ["assistant", "I am providing security assistance."],
   ["exposer", "My team exposed the live secret."],

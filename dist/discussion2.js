@@ -10,19 +10,19 @@ var __decorate = (decorators, target, key, kind) => {
   return result;
 };
 import {Ago} from "../web_modules/azure-devops-ui/Ago.js";
+import {Button} from "../web_modules/azure-devops-ui/Button.js";
 import {Card} from "../web_modules/azure-devops-ui/Card.js";
+import {Page} from "../web_modules/azure-devops-ui/Page.js";
+import {Pill, PillSize} from "../web_modules/azure-devops-ui/Pill.js";
+import {SurfaceBackground, SurfaceContext} from "../web_modules/azure-devops-ui/Surface.js";
 import {VssPersona} from "../web_modules/azure-devops-ui/VssPersona.js";
 import {observable, runInAction} from "../web_modules/mobx.js";
 import {observer} from "../web_modules/mobx-react.js";
 import * as React from "../web_modules/react.js";
 import {Component} from "../web_modules/react.js";
+import {Comment} from "./comment.js";
 import {CommentEditor2} from "./commentEditor2.js";
-import {Comment} from "./discussionStore.js";
-import {SurfaceBackground, SurfaceContext} from "../web_modules/azure-devops-ui/Surface.js";
-import {Page} from "../web_modules/azure-devops-ui/Page.js";
-import {Button} from "../web_modules/azure-devops-ui/Button.js";
 import {roleMap, voteMap} from "./discussion.js";
-import {Pill, PillSize} from "../web_modules/azure-devops-ui/Pill.js";
 function Meter(props) {
   const {value, maxValue} = props;
   return value ? /* @__PURE__ */ React.createElement("div", {
@@ -70,7 +70,7 @@ export let Discussion2 = class extends Component {
     }, /* @__PURE__ */ React.createElement(Page, {
       className: "discussion2 rhythm-vertical-16"
     }, /* @__PURE__ */ React.createElement(Card, {
-      titleProps: {text: `Secret Hash: ${"abc"}`}
+      titleProps: {text: `Secret Hash: ${store.secretHash}`}
     }, /* @__PURE__ */ React.createElement("div", {
       className: "flex-column rhythm-vertical-16"
     }, voteItems.map((voteItem) => /* @__PURE__ */ React.createElement("div", {
