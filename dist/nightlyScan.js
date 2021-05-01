@@ -19,6 +19,7 @@ const discussionStore = new DiscussionStore(instance, params.secretHash);
 export function NightlyScan() {
   const isAuthenticated = useIsAuthenticated();
   const {instance: instance2, accounts} = useMsal();
+  const username = accounts[0]?.username ?? "Anonymous";
   const {login} = useMsalAuthentication(InteractionType.Silent, {scopes: []});
   const [loading, setLoading] = useState(false);
   const [sarif, setSarif] = useState();
@@ -38,7 +39,7 @@ export function NightlyScan() {
     });
     const outboundParams = new URLSearchParams(window.location.search);
     outboundParams.set("token", adoToken);
-    return await fetch(`https://sarif-pattern-matcher-internal-function.azurewebsites.net/api/${funcName}?${outboundParams}`, {method, headers});
+    return await fetch(`https://1esnightlyscan-api-stage.azurewebsites.net/api/${funcName}?${outboundParams}`, {method, headers});
   }
   useEffect(() => {
     if (!isAuthenticated)
@@ -47,20 +48,20 @@ export function NightlyScan() {
       return;
     if (sarif)
       return;
+    function computeRepoEnabled(log) {
+      if (params.mockRepoEnabled !== void 0)
+        return;
+      const repoDisabled = log.runs?.[0]?.versionControlProvenance?.[0]?.properties?.isDisabled;
+      setRepoEnabled(repoDisabled == void 0 ? void 0 : !repoDisabled);
+    }
     if (params.mockZeroResults) {
       setSarif(sarifLogZeroResults);
-      if (params.mockRepoEnabled === void 0) {
-        const repoDisabled = sarifLogZeroResults?.runs?.[0]?.versionControlProvenance?.[0]?.properties?.isDisabled;
-        setRepoEnabled(repoDisabled == void 0 ? void 0 : !repoDisabled);
-      }
+      computeRepoEnabled(sarifLogZeroResults);
       return;
     }
     if (params.mockSomeResults) {
       setSarif(sarifLogSomeResults);
-      if (params.mockRepoEnabled === void 0) {
-        const repoDisabled = sarifLogZeroResults?.runs?.[0]?.versionControlProvenance?.[0]?.properties?.isDisabled;
-        setRepoEnabled(repoDisabled == void 0 ? void 0 : !repoDisabled);
-      }
+      computeRepoEnabled(sarifLogSomeResults);
       return;
     }
     ;
@@ -69,15 +70,12 @@ export function NightlyScan() {
       try {
         const response = await callApi("query");
         const responseJson = await response.json();
-        if (params.download && accounts[0]?.username === "mikefan@microsoft.com") {
+        if (params.download && username === "mikefan@microsoft.com") {
           const fileName = params.repository ?? params.repo ?? "results";
           download(`${fileName}.sarif`, JSON.stringify(responseJson, null, "  "));
         }
         setSarif(responseJson);
-        if (params.mockRepoEnabled === void 0) {
-          const repoDisabled = responseJson?.runs?.[0]?.versionControlProvenance?.[0]?.properties?.isDisabled;
-          setRepoEnabled(repoDisabled == void 0 ? void 0 : !repoDisabled);
-        }
+        computeRepoEnabled(responseJson);
       } catch (error) {
         alert(error);
       }
@@ -115,7 +113,7 @@ export function NightlyScan() {
       menuProps: {id: "moreMenu", items: [
         {
           id: "signOut",
-          text: `Sign out ${accounts[0]?.username}`,
+          text: `Sign out ${username}`,
           onActivate: () => void instance2.logout()
         }
       ]}
@@ -144,6 +142,6 @@ export function NightlyScan() {
     }
   })), /* @__PURE__ */ React.createElement(Discussion2, {
     store: discussionStore,
-    user: accounts[0]?.username ?? "Anonymous"
+    user: username
   }))));
 }
