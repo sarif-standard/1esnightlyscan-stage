@@ -11543,4 +11543,4 @@ var EventMessageUtils = /** @class */ (function () {
     return EventMessageUtils;
 }());
 
-export { EventType as E, InteractionType as I, Logger as L, PublicClientApplication as P, WrapperSKU as W, InteractionStatus as a, EventMessageUtils as b, stubbedPublicClientApplication as s };
+export { AccountEntity as A, EventMessageUtils as E, InteractionStatus as I, Logger as L, PublicClientApplication as P, WrapperSKU as W, EventType as a, stubbedPublicClientApplication as s };

@@ -23,6 +23,7 @@ export class DiscussionStore {
       const response = await fetch(`https://jefki210412.azurewebsites.net/discussions/${secretHash}`, {headers});
       this.comments = await response.json();
       deepObserve(this.comments, () => this.publish());
+      this.onLoad?.();
     })();
   }
   async publish() {

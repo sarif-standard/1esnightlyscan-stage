@@ -1,5 +1,3 @@
-import {InteractionType} from "../web_modules/@azure/msal-browser.js";
-import {AuthenticatedTemplate, UnauthenticatedTemplate, useIsAuthenticated, useMsal, useMsalAuthentication} from "../web_modules/@azure/msal-react.js";
 import swc from "../web_modules/@microsoft/sarif-web-component.js";
 import {Button} from "../web_modules/azure-devops-ui/Button.js";
 import {MoreButton} from "../web_modules/azure-devops-ui/Menu.js";
@@ -14,13 +12,13 @@ import {RepoStatus} from "./repoStatus.js";
 import {RevalidateButton} from "./revalidateButton.js";
 import {sarifLogSomeResults, sarifLogZeroResults} from "./sampleSarifLog.js";
 import params from "./searchParams.js";
+import {useFirstAuthenticatedAccount} from "./useFirstAuthenticatedAccount.js";
 const {Viewer} = swc;
 const discussionStore = new DiscussionStore(instance, params.secretHash);
 export function NightlyScan() {
-  const isAuthenticated = useIsAuthenticated();
-  const {instance: instance2, accounts} = useMsal();
-  const username = accounts[0]?.username ?? "Anonymous";
-  const {login} = useMsalAuthentication(InteractionType.Silent, {scopes: []});
+  const account = useFirstAuthenticatedAccount(instance);
+  const isAuthenticated = account !== void 0;
+  const username = account?.username ?? "Anonymous";
   const [loading, setLoading] = useState(false);
   const [sarif, setSarif] = useState();
   const [getSnippets, setGetSnippets] = useState();
@@ -28,13 +26,13 @@ export function NightlyScan() {
   const isRespository = repoEnabled != void 0;
   async function callApi(funcName, method) {
     const headers = new Headers();
-    const {accessToken: funcToken} = await instance2.acquireTokenSilent({
-      account: instance2.getAllAccounts()[0],
+    const {accessToken: funcToken} = await instance.acquireTokenSilent({
+      account,
       scopes: ["api://f42dbafe-6e53-4dce-b025-cc4df39fb5cc/Ruleset.read"]
     });
     headers.append("Authorization", `Bearer ${funcToken}`);
-    const {accessToken: adoToken} = await instance2.acquireTokenSilent({
-      account: instance2.getAllAccounts()[0],
+    const {accessToken: adoToken} = await instance.acquireTokenSilent({
+      account,
       scopes: ["499b84ac-1321-427f-aa17-267ca6975798/user_impersonation"]
     });
     const outboundParams = new URLSearchParams(window.location.search);
@@ -82,7 +80,7 @@ export function NightlyScan() {
       setLoading(false);
     })();
   }, [isAuthenticated]);
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(UnauthenticatedTemplate, null, /* @__PURE__ */ React.createElement("div", {
+  return !isAuthenticated ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", {
     className: "intro"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "introHeader"
@@ -91,10 +89,10 @@ export function NightlyScan() {
   }, /* @__PURE__ */ React.createElement("div", {
     className: "flex-column flex-center"
   }, /* @__PURE__ */ React.createElement(Button, {
-    onClick: () => login(InteractionType.Popup, {scopes: []})
+    onClick: () => instance.acquireTokenPopup({scopes: []})
   }, "Sign in"), /* @__PURE__ */ React.createElement("div", {
     className: "signinMessage"
-  }, "Sign in to view scan results.")))), /* @__PURE__ */ React.createElement(AuthenticatedTemplate, null, /* @__PURE__ */ React.createElement("div", {
+  }, "Sign in to view scan results.")))) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", {
     className: "intro"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "introHeader"
@@ -114,7 +112,7 @@ export function NightlyScan() {
         {
           id: "signOut",
           text: `Sign out ${username}`,
-          onActivate: () => void instance2.logout()
+          onActivate: () => void instance.logout()
         }
       ]}
     }
@@ -143,5 +141,5 @@ export function NightlyScan() {
   })), /* @__PURE__ */ React.createElement(Discussion2, {
     store: discussionStore,
     user: username
-  }))));
+  })));
 }

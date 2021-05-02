@@ -6,31 +6,31 @@ import {roleItems, voteItems} from "./discussion.js";
 import {MultipleDropdown} from "./multipleDropdown.js";
 import {Checkbox} from "../web_modules/azure-devops-ui/Checkbox.js";
 export function CommentEditor2(props) {
-  const [votes, setVotes] = useState(props.comment.votes);
   const [roles, setRoles] = useState(props.comment.roles);
+  const [votes, setVotes] = useState(props.comment.votes);
   const [text, setText] = useState(props.comment.text);
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", {
     className: "flex-column margin-bottom-8 rhythm-vertical-8"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "secondary-text"
-  }, "Please check all that apply"), voteItems.map((voteItem) => /* @__PURE__ */ React.createElement(Checkbox, {
-    key: voteItem.id,
-    label: voteItem.text,
-    checked: votes.includes(voteItem.id),
+  }, "Please check all that apply"), roleItems.map(({id, text: text2}) => /* @__PURE__ */ React.createElement(Checkbox, {
+    key: id,
+    label: text2,
+    checked: roles.includes(id),
     onChange: (_event, checked) => {
       if (checked) {
-        if (!votes.includes(voteItem.id))
-          setVotes([...votes, voteItem.id]);
+        if (!roles.includes(id))
+          setRoles([...roles, id]);
       } else {
-        setVotes(votes.filter((v) => v !== voteItem.id));
+        setRoles(roles.filter((v) => v !== id));
       }
     }
-  }))), /* @__PURE__ */ React.createElement("div", null, "Role"), /* @__PURE__ */ React.createElement(MultipleDropdown, {
+  }))), /* @__PURE__ */ React.createElement("div", null, "Vote"), /* @__PURE__ */ React.createElement(MultipleDropdown, {
     className: "margin-bottom-8",
-    placeholder: "Role",
-    items: roleItems,
-    values: Array.isArray(roles) ? roles : [],
-    onChange: (values) => setRoles(values)
+    placeholder: "Vote",
+    items: voteItems,
+    values: Array.isArray(votes) ? votes : [],
+    onChange: (values) => setVotes(values)
   }), /* @__PURE__ */ React.createElement("div", null, "Comments"), /* @__PURE__ */ React.createElement(TextField, {
     ariaLabel: "Write a comment...",
     placeholder: "Write a comment...",
