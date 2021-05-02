@@ -51,13 +51,14 @@ function PersonaStack(props) {
 export let Discussion2 = class extends Component {
   constructor(props) {
     super(props);
-    this.commentBeingEdited = void 0;
+    this.commentBeingEditedUser = void 0;
     const {store, user} = this.props;
     store.onLoad = () => {
       const userAlreadyLeftAComment = store.comments.some((comment) => comment.who === user);
       if (!userAlreadyLeftAComment) {
-        const comment = JSON.parse(JSON.stringify(new Comment(user, new Date().toISOString(), ["tracker"], [], "")));
+        const comment = JSON.parse(JSON.stringify(new Comment(user, new Date().toISOString(), [], [], "")));
         store.comments.push(comment);
+        runInAction(() => this.commentBeingEditedUser = user);
       }
     };
   }
@@ -65,7 +66,7 @@ export let Discussion2 = class extends Component {
     const {store, user} = this.props;
     if (!store.secretHash)
       return null;
-    const {commentBeingEdited} = this;
+    const {commentBeingEditedUser} = this;
     const sorted = store.comments.slice().sort((a, b) => new Date(b.when).getTime() - new Date(a.when).getTime());
     {
       const i = sorted.findIndex((comment) => comment.who === user);
@@ -140,12 +141,12 @@ export let Discussion2 = class extends Component {
           className: "secondary-text"
         }))))
       },
-      headerCommandBarItems: comment.who === user && commentBeingEdited !== comment ? [
+      headerCommandBarItems: comment.who === user && commentBeingEditedUser !== comment.who ? [
         {
           id: "edit",
           iconProps: {iconName: "Edit"},
-          disabled: commentBeingEdited === comment,
-          onActivate: () => void (this.commentBeingEdited = comment)
+          disabled: commentBeingEditedUser === comment.who,
+          onActivate: () => void (this.commentBeingEditedUser = comment.who)
         },
         {
           id: "delete",
@@ -159,10 +160,10 @@ export let Discussion2 = class extends Component {
         }
       ] : void 0,
       contentProps: {className: "rhythm-vertical-8"}
-    }, commentBeingEdited === comment ? /* @__PURE__ */ React.createElement(CommentEditor2, {
+    }, commentBeingEditedUser === comment.who ? /* @__PURE__ */ React.createElement(CommentEditor2, {
       comment,
       onCancel: () => {
-        this.commentBeingEdited = void 0;
+        this.commentBeingEditedUser = void 0;
       },
       onUpdate: (role, vote, text) => {
         runInAction(() => {
@@ -171,16 +172,18 @@ export let Discussion2 = class extends Component {
           comment.votes = vote;
           comment.text = text;
         });
-        this.commentBeingEdited = void 0;
+        this.commentBeingEditedUser = void 0;
       }
-    }) : /* @__PURE__ */ React.createElement(React.Fragment, null, !!comment.roles.length && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Role", comment.roles.length > 1 ? "s" : "", ":"), " ", comment.roles.map((role) => roleMap.get(role)).join(" ")), !!comment.votes.length && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Vote", comment.votes.length > 1 ? "s" : "", ":"), " ", comment.votes.map((vote) => voteMap.get(vote)).join(" ")), !!comment.text && /* @__PURE__ */ React.createElement("div", {
+    }) : /* @__PURE__ */ React.createElement(React.Fragment, null, !!comment.roles.length && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Role", comment.roles.length > 1 ? "s" : "", ":"), " ", comment.roles.map((role) => roleMap.get(role)).join(" ")), !!comment.votes.length && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("strong", null, "Observation", comment.votes.length > 1 ? "s" : "", ":"), " ", comment.votes.map((vote) => voteMap.get(vote)).join(" ")), !!comment.text && /* @__PURE__ */ React.createElement("div", {
       className: "margin-top-12"
-    }, /* @__PURE__ */ React.createElement("strong", null, "Comments:"), " ", comment.text))))));
+    }, /* @__PURE__ */ React.createElement("strong", null, "Comments:"), " ", comment.text), !comment.roles.length && !comment.votes.length && !comment.text && /* @__PURE__ */ React.createElement("div", {
+      className: "secondary-text text-center"
+    }, "Viewed this dicussion"))))));
   }
 };
 __decorate([
   observable
-], Discussion2.prototype, "commentBeingEdited", 2);
+], Discussion2.prototype, "commentBeingEditedUser", 2);
 Discussion2 = __decorate([
   observer
 ], Discussion2);

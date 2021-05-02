@@ -25,9 +25,8 @@ export function CommentEditor2(props) {
         setRoles(roles.filter((v) => v !== id));
       }
     }
-  }))), /* @__PURE__ */ React.createElement("div", null, "Vote"), /* @__PURE__ */ React.createElement(MultipleDropdown, {
+  }))), /* @__PURE__ */ React.createElement("div", null, "Observations"), /* @__PURE__ */ React.createElement(MultipleDropdown, {
     className: "margin-bottom-8",
-    placeholder: "Vote",
     items: voteItems,
     values: Array.isArray(votes) ? votes : [],
     onChange: (values) => setVotes(values)
