@@ -92,7 +92,8 @@ export let Discussion2 = class extends Component {
         className: "flex-row flex-center"
       }, /* @__PURE__ */ React.createElement(TextField, {
         value: store.secretHash,
-        className: "width-150"
+        className: "width-150",
+        readOnly: true
       }), /* @__PURE__ */ React.createElement(Button, {
         iconProps: {iconName: "Copy"},
         subtle: true,
