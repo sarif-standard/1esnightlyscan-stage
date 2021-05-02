@@ -178,7 +178,7 @@ export let Discussion2 = class extends Component {
       className: "margin-top-12"
     }, /* @__PURE__ */ React.createElement("strong", null, "Comments:"), " ", comment.text), !comment.roles.length && !comment.votes.length && !comment.text && /* @__PURE__ */ React.createElement("div", {
       className: "secondary-text text-center"
-    }, "Viewed this dicussion"))))));
+    }, "Viewed this discussion"))))));
   }
 };
 __decorate([
