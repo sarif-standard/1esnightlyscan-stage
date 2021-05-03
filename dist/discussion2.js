@@ -146,17 +146,8 @@ export let Discussion2 = class extends Component {
           id: "edit",
           iconProps: {iconName: "Edit"},
           disabled: commentBeingEditedUser === comment.who,
-          onActivate: () => void (this.commentBeingEditedUser = comment.who)
-        },
-        {
-          id: "delete",
-          iconProps: {iconName: "Delete"},
-          text: "Delete",
-          important: false,
-          onActivate: () => {
-            const i2 = store.comments.findIndex((storeComment) => storeComment.who === comment.who);
-            store.comments.splice(i2, 1);
-          }
+          onActivate: () => void (this.commentBeingEditedUser = comment.who),
+          subtle: true
         }
       ] : void 0,
       contentProps: {className: "rhythm-vertical-8"}
