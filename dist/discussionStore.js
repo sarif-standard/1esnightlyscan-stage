@@ -20,7 +20,7 @@ export class DiscussionStore {
       return;
     (async () => {
       const headers = await this.getHeaders();
-      const response = await fetch(`https://jefki210412.azurewebsites.net/discussions/${secretHash}`, {headers});
+      const response = await fetch(`https://1esnightlyscandiscussion.azurewebsites.net/discussions/${secretHash}`, {headers});
       this.comments = await response.json();
       deepObserve(this.comments, () => this.publish());
       this.onLoad?.();
@@ -31,7 +31,7 @@ export class DiscussionStore {
       return;
     const headers = await this.getHeaders();
     headers.append("Content-Type", "application/json");
-    await fetch(`https://jefki210412.azurewebsites.net/discussions/${this.secretHash}`, {
+    await fetch(`https://1esnightlyscandiscussion.azurewebsites.net/discussions/${this.secretHash}`, {
       method: "PUT",
       headers,
       body: JSON.stringify(this.comments)
