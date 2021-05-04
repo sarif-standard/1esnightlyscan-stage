@@ -16,13 +16,13 @@ import {sarifLogSomeResults, sarifLogZeroResults} from "./sampleSarifLog.js";
 import params from "./searchParams.js";
 import {useFirstAuthenticatedAccount} from "./useFirstAuthenticatedAccount.js";
 const {Viewer} = swc;
-const discussionStore = new DiscussionStore(instance, params.secretHash);
 export function NightlyScan() {
   const account = useFirstAuthenticatedAccount(instance);
   const isAuthenticated = account !== void 0;
   const username = account?.username ?? "Anonymous";
   const [loading, setLoading] = useState(false);
   const [sarif, setSarif] = useState();
+  const [discussionStore, setDiscussionStore] = useState();
   const [getSnippets, setGetSnippets] = useState();
   const [repoEnabled, setRepoEnabled] = useState(params.mockRepoEnabled);
   const isRespository = repoEnabled != void 0;
@@ -77,6 +77,7 @@ export function NightlyScan() {
         }
         setSarif(responseJson);
         computeRepoEnabled(responseJson);
+        setDiscussionStore(new DiscussionStore(instance, params.secretHash));
       } catch (error) {
         alert(error);
       }
@@ -141,7 +142,7 @@ export function NightlyScan() {
     onCreate: (getFilteredContextRegionSnippetTexts) => {
       setGetSnippets(() => getFilteredContextRegionSnippetTexts);
     }
-  })), /* @__PURE__ */ React.createElement(Discussion2, {
+  })), discussionStore && /* @__PURE__ */ React.createElement(Discussion2, {
     store: discussionStore,
     user: username
   })));
