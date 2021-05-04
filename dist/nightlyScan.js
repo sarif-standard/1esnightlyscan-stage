@@ -1,8 +1,10 @@
-import swc from "../web_modules/@microsoft/sarif-web-component.js";
-import {Button} from "../web_modules/azure-devops-ui/Button.js";
-import {MoreButton} from "../web_modules/azure-devops-ui/Menu.js";
-import {Spinner} from "../web_modules/azure-devops-ui/Spinner.js";
-import React, {useEffect, useState} from "../web_modules/react.js";
+import * as __SNOWPACK_ENV__ from '../_snowpack/env.js';
+
+import swc from "../_snowpack/pkg/@microsoft/sarif-web-component.js";
+import {Button} from "../_snowpack/pkg/azure-devops-ui/Button.js";
+import {MoreButton} from "../_snowpack/pkg/azure-devops-ui/Menu.js";
+import {Spinner} from "../_snowpack/pkg/azure-devops-ui/Spinner.js";
+import React, {useEffect, useState} from "../_snowpack/pkg/react.js";
 import {Age} from "./age.js";
 import {Discussion2} from "./discussion2.js";
 import {DiscussionStore} from "./discussionStore.js";
@@ -37,7 +39,8 @@ export function NightlyScan() {
     });
     const outboundParams = new URLSearchParams(window.location.search);
     outboundParams.set("token", adoToken);
-    return await fetch(`https://1esnightlyscan-api-stage.azurewebsites.net/api/${funcName}?${outboundParams}`, {method, headers});
+    const stage = __SNOWPACK_ENV__.MODE === "development" ? "-stage" : "";
+    return await fetch(`https://1esnightlyscan-api${stage}.azurewebsites.net/api/${funcName}?${outboundParams}`, {method, headers});
   }
   useEffect(() => {
     if (!isAuthenticated)
