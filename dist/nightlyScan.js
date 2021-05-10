@@ -93,7 +93,8 @@ export function NightlyScan() {
   }, /* @__PURE__ */ React.createElement("div", {
     className: "flex-column flex-center"
   }, /* @__PURE__ */ React.createElement(Button, {
-    onClick: () => instance.acquireTokenPopup({scopes: []})
+    onClick: () => instance.acquireTokenPopup({scopes: []}),
+    primary: true
   }, "Sign in"), /* @__PURE__ */ React.createElement("div", {
     className: "signinMessage"
   }, "Sign in to view scan results.")))) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", {
