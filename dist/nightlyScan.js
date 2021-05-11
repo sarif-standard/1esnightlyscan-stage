@@ -142,6 +142,12 @@ export function NightlyScan() {
     successMessage: isRespository ? `No live secrets have been detected in the '${params.repository ?? params.repo}' repository. Nice job!` : "No live secrets detected.",
     onCreate: (getFilteredContextRegionSnippetTexts) => {
       setGetSnippets(() => getFilteredContextRegionSnippetTexts);
+    },
+    onSnippetAction: (result) => {
+      const hash = result.fingerprints?.["ValidationFingerprintHash/v1"];
+      if (!hash)
+        return;
+      window.open(`${document.location.href.split("?").shift()}?secretHash=${hash}`);
     }
   })), discussionStore && /* @__PURE__ */ React.createElement(Discussion2, {
     store: discussionStore,
