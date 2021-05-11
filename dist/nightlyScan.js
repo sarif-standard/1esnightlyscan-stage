@@ -39,7 +39,7 @@ export function NightlyScan() {
     });
     const outboundParams = new URLSearchParams(window.location.search);
     outboundParams.set("token", adoToken);
-    const stage = __SNOWPACK_ENV__.MODE === "development" ? "-stage" : "";
+    const stage = __SNOWPACK_ENV__.MODE === "development" || document.location.pathname.includes("stage") ? "-stage" : "";
     return await fetch(`https://1esnightlyscan-api${stage}.azurewebsites.net/api/${funcName}?${outboundParams}`, {method, headers});
   }
   useEffect(() => {
