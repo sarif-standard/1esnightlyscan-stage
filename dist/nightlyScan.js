@@ -138,6 +138,7 @@ export function NightlyScan() {
       Baseline: {value: ["new", "unchanged", "updated"]},
       Level: {value: ["error"]}
     },
+    hideBaseline: !params.showBaseline,
     successMessage: isRespository ? `No live secrets have been detected in the '${params.repository ?? params.repo}' repository. Nice job!` : "No live secrets detected.",
     onCreate: (getFilteredContextRegionSnippetTexts) => {
       setGetSnippets(() => getFilteredContextRegionSnippetTexts);
