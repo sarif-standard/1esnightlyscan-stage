@@ -9,6 +9,9 @@ export default {
   get filterKeywords() {
     return getParam("filterKeywords") ?? "";
   },
+  get filterLevel() {
+    return getParam("filterLevel")?.split(",");
+  },
   get mockRepoEnabled() {
     const value = getParam("mockRepoEnabled");
     if (value === "true")

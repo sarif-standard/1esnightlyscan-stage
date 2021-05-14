@@ -132,7 +132,7 @@ export function NightlyScan() {
     filterState: {
       Keywords: {value: params.filterKeywords},
       Baseline: {value: ["new", "unchanged", "updated"]},
-      Level: {value: ["error"]}
+      Level: {value: params.filterLevel ?? ["error"]}
     },
     hideBaseline: !params.showBaseline,
     successMessage: isRespository ? `No live secrets have been detected in the '${params.repository ?? params.repo}' repository. Nice job!` : "No live secrets detected.",
